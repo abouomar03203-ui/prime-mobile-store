@@ -93,7 +93,12 @@ let active='All';
 const grid=document.getElementById('productGrid');
 const searchInput=document.getElementById('search');
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function render(){const q=searchInput.value.trim().toLowerCase();const list=products.filter(p=>(active==='All'||p.category===active)&&(`${p.name} ${p.category} ${p.desc}`).toLowerCase().includes(q));grid.innerHTML=list.length?list.map((p,i)=>`<article class="product"><div class="product-art"><span class="product-badge">${escapeHtml(p.category)}</span><span>${escapeHtml(p.icon)}</span></div><h3>${escapeHtml(p.name)}</h3><div class="desc">${escapeHtml(p.desc)}</div><div class="product-bottom"><div class="price">${escapeHtml(p.price)}</div><button type="button" data-order="${i}">Ask & Order via WhatsApp ↗</button></div></article>`).join(''):'<div class="empty">No products match your search. Try another name or category.</div>';grid.querySelectorAll('[data-order]').forEach((btn,i)=>btn.addEventListener('click',()=>order(list[i].name)));}
+<div class="product-art">
+  <span class="product-badge">${escapeHtml(p.category)}</span>
+  ${p.image
+    ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:12px;">`
+    : `<span>${escapeHtml(p.icon)}</span>`}
+</div>
 function order(name){const msg=encodeURIComponent('Hello Prime Mobile! I would like to ask about: '+name+'. Could you share the price and availability?');window.open('https://wa.me/96176378755?text='+msg,'_blank','noopener');}
 let searchHasAutoScrolled=false;
 searchInput.addEventListener('input',()=>{render();if(searchInput.value.trim()&&!searchHasAutoScrolled){document.getElementById('products').scrollIntoView({behavior:'smooth',block:'start'});searchHasAutoScrolled=true;}if(!searchInput.value.trim())searchHasAutoScrolled=false;});
