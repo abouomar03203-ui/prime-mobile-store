@@ -1,1424 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07152d">
-
-<title>Prime Mobile | Phones & Accessories</title>
-
-<meta name="description"
-content="Shop smartphones, mobile accessories, chargers and internet services at Prime Mobile in Tripoli, Lebanon.">
-
+<title>Prime Mobile | برايم موبايل</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --bg: #07152d;
-  --card: #102449;
-  --card2: #0c1e3a;
-  --text: #f4f7ff;
-  --muted: #a8b8d4;
-  --blue: #2f80ed;
-  --line: #294264;
-  --green: #20c997;
-  --red: #ff647c;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
-}
-
-button, input, select, textarea {
-  font: inherit;
-}
-
-button, a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  width: min(1150px, 92%);
-  margin: auto;
-}
-
-.topbar {
-  background: #040d1d;
-  color: var(--muted);
-  padding: 9px 0;
-  font-size: 12px;
-}
-
-.topbar .container {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(7, 21, 45, .96);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 72px;
-  gap: 12px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 19px;
-  font-weight: 900;
-}
-
-.logo {
-  width: 43px;
-  height: 43px;
-  display: grid;
-  place-items: center;
-  border-radius: 13px;
-  background: linear-gradient(135deg, #54a0ff, #1453a5);
-  font-size: 20px;
-}
-
-.brand small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-}
-
-.nav-buttons {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  padding: 11px 14px;
-  border: 0;
-  border-radius: 11px;
-  font-weight: 800;
-  transition: .2s;
-}
-
-.btn:active {
-  transform: scale(.98);
-}
-
-.primary {
-  background: linear-gradient(135deg, #368cff, #1761c5);
-  color: white;
-}
-
-.secondary {
-  background: #16315a;
-  color: white;
-  border: 1px solid var(--line);
-}
-
-.badge {
-  background: #ff4f6d;
-  color: white;
-  border-radius: 20px;
-  padding: 1px 7px;
-  font-size: 11px;
-}
-
-.hero {
-  padding: 48px 0 25px;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 25px;
-  align-items: center;
-}
-
-.eyebrow {
-  color: #7db5ff;
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.hero h1 {
-  font-size: clamp(36px, 5vw, 58px);
-  line-height: 1.05;
-  margin: 14px 0;
-  letter-spacing: -1.5px;
-}
-
-.hero h1 span {
-  color: #61a5ff;
-}
-
-.hero p {
-  color: var(--muted);
-  font-size: 16px;
-  max-width: 580px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 22px;
-}
-
-.hero-card {
-  border: 1px solid #294c7d;
-  border-radius: 24px;
-  padding: 27px;
-  min-height: 245px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(145deg, #163b70, #0a1931);
-}
-
-.hero-icon {
-  font-size: 60px;
-}
-
-.hero-card h2 {
-  font-size: 23px;
-  margin-bottom: 5px;
-}
-
-.hero-card p {
-  font-size: 13px;
-  margin-bottom: 0;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 28px 0 38px;
-}
-
-.feature {
-  background: var(--card2);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 15px;
-}
-
-.feature b {
-  display: block;
-  font-size: 14px;
-}
-
-.feature span {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-section {
-  padding: 28px 0 40px;
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.section-head h2 {
-  font-size: 29px;
-  margin: 5px 0;
-}
-
-.section-head p {
-  color: var(--muted);
-  margin: 0;
-  font-size: 13px;
-}
-
-.field {
-  width: 100%;
-  background: #081832;
-  border: 1px solid var(--line);
-  color: white;
-  padding: 12px;
-  border-radius: 10px;
-  outline: none;
-}
-
-.field:focus {
-  border-color: #54a0ff;
-}
-
-.search {
-  max-width: 300px;
-}
-
-.categories {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.chip {
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: var(--card2);
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.chip.active {
-  background: var(--blue);
-  color: white;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.product {
-  background: linear-gradient(150deg, #102449, #0b1b35);
-  border: 1px solid var(--line);
-  border-radius: 17px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-image {
-  height: 180px;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background: linear-gradient(135deg, #18365f, #09172d);
-  font-size: 60px;
-}
-
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.product-body {
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.product-category {
-  color: #82b7ff;
-  font-size: 10px;
-  letter-spacing: 1px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.product h3 {
-  font-size: 16px;
-  margin: 7px 0;
-}
-
-.product-description {
-  color: var(--muted);
-  font-size: 12px;
-  min-height: 36px;
-}
-
-.price {
-  font-size: 20px;
-  font-weight: 900;
-  margin: 12px 0;
-}
-
-.product-actions {
-  display: grid;
-  gap: 8px;
-  margin-top: auto;
-}
-
-.product-actions button {
-  width: 100%;
-  font-size: 12px;
-}
-
-.empty {
-  grid-column: 1 / -1;
-  padding: 25px;
-  text-align: center;
-  color: var(--muted);
-  border: 1px dashed var(--line);
-  border-radius: 14px;
-}
-
-.contact-box {
-  background: linear-gradient(120deg, #143d76, #0d2345);
-  border: 1px solid #2d5487;
-  border-radius: 20px;
-  padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.contact-box h2 {
-  margin: 0 0 5px;
-}
-
-.contact-box p {
-  color: #c1d5f3;
-  margin: 0;
-}
-
-.footer {
-  border-top: 1px solid var(--line);
-  padding: 22px 0;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.footer .container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.modal-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  background: #020816d9;
-}
-
-.modal-bg.open {
-  display: flex;
-}
-
-.modal {
-  background: #0b1c37;
-  border: 1px solid #294264;
-  border-radius: 18px;
-  width: min(650px, 100%);
-  max-height: 92vh;
-  overflow-y: auto;
-  padding: 19px;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.modal-header h2 {
-  margin: 0;
-}
-
-.close {
-  width: 37px;
-  height: 37px;
-  border-radius: 9px;
-  border: 1px solid var(--line);
-  background: #16315a;
-  color: white;
-  font-size: 22px;
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.cart-item h4 {
-  margin: 0 0 5px;
-}
-
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.qty button {
-  width: 29px;
-  height: 29px;
-  background: #16315a;
-  color: white;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-}
-
-.remove {
-  background: none;
-  border: 0;
-  color: #ff8192;
-  font-size: 12px;
-  margin-top: 6px;
-}
-
-.total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 21px;
-  font-weight: 900;
-  padding: 15px 0;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.form-row {
-  margin-bottom: 10px;
-}
-
-.form-row label {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.full {
-  grid-column: 1 / -1;
-}
-
-.hint {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.pay-info {
-  background: #102449;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 12px;
-  color: var(--muted);
-  margin: 12px 0;
-}
-
-.toast {
-  position: fixed;
-  z-index: 50;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  pointer-events: none;
-  background: white;
-  color: #07152d;
-  padding: 12px 18px;
-  border-radius: 10px;
-  transition: .25s;
-  max-width: 90%;
-  font-weight: bold;
-  text-align: center;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-@media(max-width:760px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding-top: 32px;
-  }
-
-  .hero-card {
-    min-height: 175px;
-  }
-
-  .products {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .product-image {
-    height: 135px;
-  }
-
-  .product-body {
-    padding: 11px;
-  }
-
-  .product h3 {
-    font-size: 14px;
-  }
-
-  .product-description {
-    font-size: 11px;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .full {
-    grid-column: auto;
-  }
-
-  .brand {
-    font-size: 15px;
-  }
-
-  .brand small {
-    font-size: 8px;
-    letter-spacing: 1px;
-  }
-
-  .nav-buttons .btn {
-    padding: 9px;
-    font-size: 12px;
-  }
-}
-
-@media(max-width:380px) {
-  .products {
-    grid-template-columns: 1fr;
-  }
-
-  .product-image {
-    height: 190px;
-  }
-}
-
-body.light {
-  --bg: #f1f5fc;
-  --card: #ffffff;
-  --card2: #ffffff;
-  --text: #10213b;
-  --muted: #5f7089;
-  --line: #d5deeb;
-}
-
-body.light header,
-body.light .product,
-body.light .feature,
-body.light .modal {
-  background: #ffffff;
-}
-
-body.light .field {
-  background: #f6f8fc;
-  color: #10213b;
-}
+:root{--blue:#0755d9;--dark:#101827;--red:#e53935;--bg:#f4f7fc}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--dark)}
+header{background:var(--blue);color:white;padding:20px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:27px;font-weight:bold}
+header button{background:white;color:var(--blue);border:0;padding:10px 15px;border-radius:9px;font-weight:bold;cursor:pointer}
+.hero{background:linear-gradient(120deg,#0755d9,#032d80);color:white;text-align:center;padding:45px 15px}
+.hero h1{font-size:32px;margin:0 0 12px}
+.hero p{margin:0;line-height:1.8}
+.controls{max-width:1100px;margin:22px auto;padding:0 15px;display:flex;gap:10px;flex-wrap:wrap}
+input,select,textarea{padding:12px;border:1px solid #d6deeb;border-radius:9px;font:inherit;width:100%;background:white}
+#search{flex:1;min-width:180px}
+.categories{display:flex;gap:8px;flex-wrap:wrap;max-width:1100px;margin:0 auto 20px;padding:0 15px}
+.categories button,.btn{border:0;background:var(--blue);color:white;padding:11px 15px;border-radius:9px;cursor:pointer;font-weight:bold}
+.categories button{background:white;color:var(--blue);border:1px solid #d8e3f8}
+.categories button.active{background:var(--blue);color:white}
+.grid{max-width:1100px;margin:0 auto 35px;padding:0 15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.card{background:white;border-radius:15px;padding:13px;box-shadow:0 4px 16px #132b5010;overflow:hidden}
+.photo{height:180px;background:#f7f9fd;border-radius:11px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:contain}
+.card h3{font-size:17px;margin:13px 0 7px}
+.desc{color:#68758b;font-size:13px;line-height:1.6;min-height:35px}
+.price{color:var(--red);font-size:21px;font-weight:bold;margin:12px 0}
+.card button{width:100%}
+section.panel{max-width:850px;margin:20px auto;background:white;padding:20px;border-radius:14px}
+form{display:grid;gap:12px}
+.hidden{display:none!important}
+.notice{text-align:center;padding:25px;color:#65728a}
+footer{text-align:center;background:#101827;color:white;padding:25px;line-height:2}
+.adminbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.adminbar button{border:0;border-radius:8px;padding:10px;cursor:pointer}
+.order{border:1px solid #e1e7f0;padding:12px;border-radius:10px;margin:10px 0;overflow-wrap:anywhere}
+@media(max-width:500px){.hero h1{font-size:25px}.logo{font-size:22px}}
 </style>
 </head>
-
 <body>
 
-<div class="topbar">
-  <div class="container">
-    <span>📍 Tripoli, Lebanon</span>
-    <span>📲 Prime Mobile — Contact us on WhatsApp</span>
-  </div>
-</div>
-
 <header>
-  <div class="container nav">
-    <a class="brand" href="#">
-      <span class="logo">PM</span>
-      <span>
-        PRIME MOBILE
-        <small>PHONES • ACCESSORIES • SERVICES</small>
-      </span>
-    </a>
-
-    <div class="nav-buttons">
-      <button class="btn secondary" id="themeBtn">☀️</button>
-      <button class="btn primary" id="openCart">
-        🛒 Cart <span class="badge" id="cartCount">0</span>
-      </button>
-    </div>
+  <div class="logo">🔵 PRIME MOBILE</div>
+  <div>
+    <button onclick="showCart()">🛒 السلة (<span id="cartCount">0</span>)</button>
+    <button onclick="showLogin()">🔐 الإدارة</button>
   </div>
 </header>
 
-<main>
-
-<div class="container hero">
-  <div class="hero-grid">
-    <div>
-      <div class="eyebrow">Your trusted mobile shop</div>
-
-      <h1>
-        Smart choices.<br>
-        <span>Prime service.</span>
-      </h1>
-
-      <p>
-        Discover mobile accessories, chargers, smartphones,
-        internet services and more at Prime Mobile.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#products" class="btn primary">🛍️ Shop now</a>
-
-        <a href="https://wa.me/96176378755"
-           target="_blank"
-           rel="noopener"
-           class="btn secondary">
-          WhatsApp us ↗
-        </a>
-      </div>
-    </div>
-
-    <div class="hero-card">
-      <div class="hero-icon">📱⚡</div>
-
-      <div>
-        <h2>Welcome to Prime Mobile</h2>
-        <p>
-          Your local destination for phones, accessories
-          and mobile services in Tripoli.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="features">
-    <div class="feature">
-      <b>🚚 Delivery</b>
-      <span>Available within Tripoli</span>
-    </div>
-
-    <div class="feature">
-      <b>💬 Direct support</b>
-      <span>Contact us for product details</span>
-    </div>
-
-    <div class="feature">
-      <b>🛡️ Warranty options</b>
-      <span>Ask about warranty on selected items</span>
-    </div>
-  </div>
+<div class="hero">
+  <h1>كل شي لموبايلك بمكان واحد</h1>
+  <p>إكسسوارات • شواحن • هواتف • إنترنت • خدمات طباعة<br>Prime Mobile — ثقتكم بتكبر فينا</p>
 </div>
 
-<section id="products">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">Our collection</div>
-        <h2>Shop products</h2>
-        <p>Search products or choose a category.</p>
-      </div>
-
-      <input
-        id="searchInput"
-        class="field search"
-        type="search"
-        placeholder="Search products..."
-      >
-    </div>
-
-    <div class="categories" id="categories"></div>
-
-    <div class="products" id="productGrid"></div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="contact-box">
-      <div>
-        <h2>Need help choosing?</h2>
-        <p>Message Prime Mobile for prices and availability.</p>
-      </div>
-
-      <a class="btn primary"
-         href="https://wa.me/96176378755"
-         target="_blank"
-         rel="noopener">
-        Chat on WhatsApp ↗
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <span>© <span id="year"></span> Prime Mobile</span>
-    <span>Tripoli, Lebanon • Prices in USD</span>
-  </div>
-</footer>
-
-<!-- CART -->
-<div class="modal-bg" id="cartModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>🛒 Your cart</h2>
-      <button class="close" data-close="cartModal">×</button>
-    </div>
-
-    <div id="cartItems"></div>
-
-    <div class="total">
-      <span>Total</span>
-      <span id="cartTotal">$0.00</span>
-    </div>
-
-    <p class="hint">
-      Products without a confirmed price must be ordered through WhatsApp.
-    </p>
-
-    <button class="btn primary" id="checkoutBtn" style="width:100%">
-      Continue to checkout
-    </button>
-
-    <button class="btn secondary"
-            data-close="cartModal"
-            style="width:100%;margin-top:8px">
-      Continue shopping
-    </button>
-  </div>
+<div class="controls">
+  <input id="search" placeholder="فتّش عن منتج..." oninput="renderProducts()">
+  <select id="sort" onchange="renderProducts()">
+    <option value="default">الترتيب الافتراضي</option>
+    <option value="low">السعر: من الأرخص للأغلى</option>
+    <option value="high">السعر: من الأغلى للأرخص</option>
+  </select>
 </div>
 
-<!-- CHECKOUT -->
-<div class="modal-bg" id="checkoutModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>Checkout</h2>
-      <button class="close" data-close="checkoutModal">×</button>
-    </div>
+<div class="categories" id="categories"></div>
+<div class="grid" id="productsGrid"></div>
+<div id="status" class="notice"></div>
 
-    <form id="checkoutForm">
-      <div class="form-grid">
+<section id="cartPanel" class="panel hidden">
+  <h2>🛒 سلة المشتريات</h2>
+  <div id="cartItems"></div>
+  <h3>المجموع: $<span id="cartTotal">0.00</span></h3>
+  <hr>
+  <h3>معلومات الطلب</h3>
+  <form id="checkoutForm">
+    <input id="customerName" placeholder="الاسم الكامل" required>
+    <input id="customerPhone" placeholder="رقم الهاتف" required>
+    <input id="customerAddress" placeholder="العنوان في طرابلس (للتوصيل)">
+    <select id="delivery">
+      <option value="pickup">استلام من المحل</option>
+      <option value="delivery">توصيل داخل طرابلس</option>
+    </select>
+    <select id="payment">
+      <option value="cash">كاش عند الاستلام</option>
+      <option value="omt">OMT</option>
+      <option value="usdt">USDT</option>
+    </select>
+    <textarea id="notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+    <button class="btn" type="submit">تأكيد الطلب</button>
+  </form>
+  <p id="checkoutMessage"></p>
+  <button class="btn" onclick="hideCart()">إغلاق السلة</button>
+</section>
 
-        <div class="form-row">
-          <label for="customerName">Full name *</label>
-          <input class="field" id="customerName"
-                 required maxlength="100" autocomplete="name">
-        </div>
+<section id="loginPanel" class="panel hidden">
+  <h2>🔐 دخول الإدارة</h2>
+  <p>سجّل الدخول بحساب الإدارة الذي أنشأته في Supabase.</p>
+  <form id="loginForm">
+    <input id="adminEmail" type="email" placeholder="البريد الإلكتروني" required>
+    <input id="adminPassword" type="password" placeholder="كلمة المرور" required>
+    <button class="btn" type="submit">تسجيل الدخول</button>
+  </form>
+  <p id="loginMessage"></p>
+  <button class="btn" onclick="hideLogin()">إغلاق</button>
+</section>
 
-        <div class="form-row">
-          <label for="customerPhone">Phone number *</label>
-          <input class="field" id="customerPhone"
-                 required maxlength="30" autocomplete="tel">
-        </div>
+<section id="adminPanel" class="panel hidden">
+  <h2>⚙️ لوحة إدارة Prime Mobile</h2>
+  <p id="adminMessage"></p>
+  <div class="adminbar">
+    <button class="btn" onclick="loadAdmin()">🔄 تحديث البيانات</button>
+    <button class="btn" onclick="showProductForm()">➕ إضافة منتج</button>
+    <button class="btn" onclick="logout()">تسجيل الخروج</button>
+  </div>
 
-        <div class="form-row full">
-          <label for="customerAddress">Address in Tripoli *</label>
-          <input class="field" id="customerAddress"
-                 required maxlength="250"
-                 placeholder="Area, street and building">
-        </div>
-
-        <div class="form-row">
-          <label for="delivery">Delivery option</label>
-          <select class="field" id="delivery">
-            <option value="Delivery in Tripoli">Delivery in Tripoli</option>
-            <option value="Pickup from shop">Pickup from shop</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <label for="payment">Payment method</label>
-          <select class="field" id="payment">
-            <option value="Cash on delivery">Cash on delivery</option>
-            <option value="OMT">OMT</option>
-            <option value="USDT">USDT</option>
-          </select>
-        </div>
-
-        <div class="form-row full">
-          <label for="notes">Order notes (optional)</label>
-          <textarea class="field" id="notes"
-                    rows="3" maxlength="500"
-                    placeholder="Any additional instructions"></textarea>
-        </div>
-
-      </div>
-
-      <div class="pay-info" id="paymentInfo">
-        Cash on delivery: pay when you receive your order.
-      </div>
-
-      <p class="hint">
-        For OMT and USDT, confirm the payment details with Prime Mobile
-        before sending any money.
-      </p>
-
-      <button type="submit" class="btn primary" style="width:100%">
-        Confirm order via WhatsApp
-      </button>
+  <div id="productFormArea" class="hidden">
+    <h3>إضافة منتج</h3>
+    <form id="productForm">
+      <input id="pName" placeholder="اسم المنتج" required>
+      <input id="pCategory" placeholder="القسم، مثال: Accessories" required>
+      <input id="pPrice" type="number" min="0" step="0.01" placeholder="السعر بالدولار" required>
+      <input id="pStock" type="number" min="0" step="1" placeholder="الكمية المتوفرة" required>
+      <input id="pImage" type="url" placeholder="رابط صورة المنتج">
+      <textarea id="pDesc" placeholder="وصف المنتج"></textarea>
+      <button class="btn" type="submit">حفظ المنتج</button>
     </form>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
+  <h3>المنتجات</h3>
+  <div id="adminProducts"></div>
+  <h3>الطلبات الواردة</h3>
+  <div id="adminOrders"></div>
+</section>
+
+<footer>
+  <strong>PRIME MOBILE</strong><br>
+  طرابلس — التبانة، قرب ساحة السمَر<br>
+  للاستفسار والطلبات: 76 378 755<br>
+  © Prime Mobile
+</footer>
 
 <script>
-'use strict';
+/* إعداد الاتصال بقاعدة البيانات */
+const SUPABASE_URL = "https://uqtwdypbabvgcseqksnr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_dHw5DvwZZsF2o5r1jGVZig_l80Y0NZS";
 
-const WHATSAPP_NUMBER = '96176378755';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const products = [
-  {
-    id: 'wireless-earbuds',
-    name: 'Wireless Earbuds',
-    category: 'Accessories',
-    price: null,
-    icon: '🎧',
-    desc: 'Clear sound for everyday use'
-  },
-  {
-    id: 'typec-charger',
-    name: 'Fast Type-C Charger',
-    category: 'Accessories',
-    price: null,
-    icon: '🔌',
-    desc: 'Convenient fast charging'
-  },
-  {
-    id: 'power-bank',
-    name: 'Power Bank',
-    category: 'Accessories',
-    price: null,
-    icon: '🔋',
-    desc: 'Extra power when you need it'
-  },
-  {
-    id: 'phone-case',
-    name: 'Phone Case & Screen Protector',
-    category: 'Accessories',
-    price: null,
-    icon: '🛡️',
-    desc: 'Protection for your phone'
-  },
-  {
-    id: 'smartphones',
-    name: 'Smartphones',
-    category: 'Phones',
-    price: null,
-    icon: '📱',
-    desc: 'Ask us about available models'
-  },
-  {
-    id: 'alfa-mtc',
-    name: 'Alfa / MTC Recharge',
-    category: 'Recharge & Internet',
-    price: null,
-    icon: '📶',
-    desc: 'Top-up cards and recharge services'
-  },
-  {
-    id: 'ushare',
-    name: 'U-Share & Internet',
-    category: 'Recharge & Internet',
-    price: null,
-    icon: '🌐',
-    desc: 'Internet plans and services'
-  },
-  {
-    id: 'printing',
-    name: 'Printing Services',
-    category: 'Services',
-    price: null,
-    icon: '🖨️',
-    desc: 'Ask about printing and repair services'
-  },
-  {
-    id: 'moxom-charger',
-    name: 'Moxom Fast Charger',
-    category: 'Accessories',
-    price: 8,
-    icon: '🔌',
-    image: 'https://i.ibb.co/G3W8rhN9/Whats-App-Image-2026-10-25-at-3-50-28-AM.jpg',
-    desc: 'Fast charging with 3-month warranty'
-  }
+const fallbackProducts = [
+ {id:"local-1",name:"Moxom Fast Charger",category:"Accessories",price:8,description:"شاحن سريع من Moxom",image_url:"https://i.ibb.co/G3W8rhN9/Whats-App-Image-2026-10-25-at-3-50-28-AM.jpg",stock:10,active:true},
+ {id:"local-2",name:"Wireless Earbuds",category:"Accessories",price:10,description:"سماعات لاسلكية",image_url:"",stock:10,active:true},
+ {id:"local-3",name:"Fast Type-C Charger",category:"Accessories",price:5,description:"شاحن Type-C",image_url:"",stock:10,active:true},
+ {id:"local-4",name:"Power Bank 10000mAh",category:"Accessories",price:8,description:"باور بانك 10000mAh",image_url:"",stock:10,active:true},
+ {id:"local-5",name:"Phone Case & Screen Protector",category:"Accessories",price:5,description:"كفر وحماية شاشة",image_url:"",stock:10,active:true},
+ {id:"local-6",name:"Smartphones",category:"Phones",price:100,description:"تواصل معنا لمعرفة الأجهزة المتوفرة",image_url:"",stock:1,active:true},
+ {id:"local-7",name:"Alfa / MTC Recharge",category:"Internet",price:1,description:"تعبئة خطوط وخدمات إنترنت",image_url:"",stock:10,active:true},
+ {id:"local-8",name:"Printing Services",category:"Printing",price:1,description:"خدمات طباعة متنوعة",image_url:"",stock:10,active:true}
 ];
 
-let activeCategory = 'All';
-
+let products = [];
 let cart = [];
-
-try {
-  cart = JSON.parse(localStorage.getItem('primeMobileCart') || '[]');
-  if (!Array.isArray(cart)) cart = [];
-} catch {
-  cart = [];
-}
+let activeCategory = "الكل";
+let sessionUser = null;
 
 const $ = id => document.getElementById(id);
+const money = n => Number(n || 0).toFixed(2);
 
-function escapeHTML(value) {
-  return String(value ?? '').replace(/[&<>"']/g, char => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  })[char]);
-}
+async function loadProducts(){
+  $("status").textContent = "عم نحمل المنتجات...";
+  const {data,error} = await db.from("products")
+    .select("*").eq("active",true).order("created_at",{ascending:false});
 
-function money(value) {
-  return '$' + Number(value).toFixed(2);
-}
-
-function showToast(message) {
-  $('toast').textContent = message;
-  $('toast').classList.add('show');
-
-  setTimeout(() => {
-    $('toast').classList.remove('show');
-  }, 2600);
-}
-
-function getPrice(product) {
-  return typeof product.price === 'number' &&
-         Number.isFinite(product.price) &&
-         product.price >= 0
-    ? product.price
-    : null;
-}
-
-function renderCategories() {
-  const categories = [
-    'All',
-    ...new Set(products.map(product => product.category))
-  ];
-
-  $('categories').innerHTML = categories.map(category => `
-    <button
-      class="chip ${category === activeCategory ? 'active' : ''}"
-      data-category="${escapeHTML(category)}">
-      ${escapeHTML(category)}
-    </button>
-  `).join('');
-
-  $('categories').querySelectorAll('[data-category]').forEach(button => {
-    button.addEventListener('click', () => {
-      activeCategory = button.dataset.category;
-      renderCategories();
-      renderProducts();
-    });
-  });
-}
-
-function renderProducts() {
-  const query = $('searchInput').value.trim().toLowerCase();
-
-  const list = products.filter(product => {
-    const categoryMatch =
-      activeCategory === 'All' ||
-      product.category === activeCategory;
-
-    const text = [
-      product.name,
-      product.category,
-      product.desc
-    ].join(' ').toLowerCase();
-
-    return categoryMatch && text.includes(query);
-  });
-
-  if (!list.length) {
-    $('productGrid').innerHTML =
-      '<div class="empty">No products found.</div>';
-    return;
+  if(error){
+    products = fallbackProducts;
+    $("status").textContent = "تعذّر تحميل المنتجات من قاعدة البيانات. تأكد من إعداد Supabase.";
+  }else{
+    products = data && data.length ? data : fallbackProducts;
+    $("status").textContent = data && data.length ? "" : "أضف منتجاتك من لوحة الإدارة لتظهر على الموقع.";
   }
-
-  $('productGrid').innerHTML = list.map(product => {
-    const price = getPrice(product);
-
-    return `
-      <article class="product">
-        <div class="product-image">
-          ${
-            product.image
-              ? `<img src="${escapeHTML(product.image)}"
-                      alt="${escapeHTML(product.name)}"
-                      loading="lazy"
-                      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                 <span style="display:none">${escapeHTML(product.icon)}</span>`
-              : escapeHTML(product.icon)
-          }
-        </div>
-
-        <div class="product-body">
-          <span class="product-category">
-            ${escapeHTML(product.category)}
-          </span>
-
-          <h3>${escapeHTML(product.name)}</h3>
-
-          <div class="product-description">
-            ${escapeHTML(product.desc)}
-          </div>
-
-          <div class="price">
-            ${price === null ? 'Ask for price' : money(price)}
-          </div>
-
-          <div class="product-actions">
-            ${
-              price !== null
-                ? `<button class="btn primary"
-                           data-add="${escapeHTML(product.id)}">
-                     🛒 Add to cart
-                   </button>`
-                : ''
-            }
-
-            <button class="btn secondary"
-                    data-ask="${escapeHTML(product.id)}">
-              Ask on WhatsApp ↗
-            </button>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
-
-  $('productGrid').querySelectorAll('[data-add]').forEach(button => {
-    button.addEventListener('click', () => addToCart(button.dataset.add));
-  });
-
-  $('productGrid').querySelectorAll('[data-ask]').forEach(button => {
-    button.addEventListener('click', () => askProduct(button.dataset.ask));
-  });
+  renderCategories();
+  renderProducts();
 }
 
-function askProduct(id) {
-  const product = products.find(item => item.id === id);
-  if (!product) return;
+function renderCategories(){
+  const cats = ["الكل",...new Set(products.map(p=>p.category).filter(Boolean))];
+  $("categories").innerHTML = cats.map(c=>
+    `<button class="${c===activeCategory?'active':''}" onclick="setCategory(${JSON.stringify(c)})">${escapeHtml(c)}</button>`
+  ).join("");
+}
 
-  const message =
-    `Hello Prime Mobile! I want to ask about ${product.name}. ` +
-    'Please confirm availability and price.';
+function setCategory(c){
+  activeCategory=c;
+  renderCategories();
+  renderProducts();
+}
 
-  window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
-    '_blank'
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function renderProducts(){
+  const q=$("search").value.trim().toLowerCase();
+  let list=products.filter(p=>
+    (activeCategory==="الكل" || p.category===activeCategory) &&
+    `${p.name} ${p.category} ${p.description||""}`.toLowerCase().includes(q)
   );
+  if($("sort").value==="low") list.sort((a,b)=>a.price-b.price);
+  if($("sort").value==="high") list.sort((a,b)=>b.price-a.price);
+
+  $("productsGrid").innerHTML=list.length?list.map(p=>`
+    <article class="card">
+      <div class="photo">${p.image_url?
+        `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.name)}" onerror="this.parentElement.innerHTML='📱'">`
+        :'📱'}</div>
+      <h3>${escapeHtml(p.name)}</h3>
+      <div class="desc">${escapeHtml(p.description||"")}</div>
+      <div class="price">$${money(p.price)}</div>
+      <button class="btn" onclick="addToCart('${String(p.id).replace(/'/g,"")}')">أضف إلى السلة</button>
+    </article>`).join(""):'<div class="notice">ما لقينا منتجات بهالقسم.</div>';
 }
 
-function saveCart() {
-  localStorage.setItem('primeMobileCart', JSON.stringify(cart));
-  renderCart();
+function addToCart(id){
+  const p=products.find(x=>String(x.id)===String(id));
+  if(!p)return;
+  const existing=cart.find(x=>String(x.id)===String(id));
+  if(existing) existing.quantity++;
+  else cart.push({...p,quantity:1});
+  updateCart();
+  alert("انضاف المنتج للسلة ❤️");
 }
 
-function addToCart(id) {
-  const product = products.find(item => item.id === id);
-
-  if (!product || getPrice(product) === null) {
-    showToast('Please ask for the price on WhatsApp.');
-    return;
-  }
-
-  const existing = cart.find(item => item.id === id);
-
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ id: id, qty: 1 });
-  }
-
-  saveCart();
-  showToast('Product added to your cart!');
+function updateCart(){
+  $("cartCount").textContent=cart.reduce((s,p)=>s+p.quantity,0);
+  $("cartItems").innerHTML=cart.length?cart.map((p,i)=>`
+    <div class="order">
+      <b>${escapeHtml(p.name)}</b> — $${money(p.price)} × ${p.quantity}
+      <button onclick="changeQty(${i},-1)">−</button>
+      <button onclick="changeQty(${i},1)">+</button>
+      <button onclick="removeCart(${i})">حذف</button>
+    </div>`).join(""):"السلة فارغة.";
+  $("cartTotal").textContent=money(cart.reduce((s,p)=>s+p.price*p.quantity,0));
 }
 
-function renderCart() {
-  cart = cart.filter(item =>
-    products.some(product => product.id === item.id) &&
-    Number.isInteger(item.qty) &&
-    item.qty > 0
-  );
-
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
-
-  $('cartCount').textContent = count;
-
-  let total = 0;
-
-  if (!cart.length) {
-    $('cartItems').innerHTML =
-      '<div class="empty">Your cart is empty.</div>';
-  } else {
-    $('cartItems').innerHTML = cart.map(item => {
-      const product = products.find(p => p.id === item.id);
-
-      if (!product || getPrice(product) === null) return '';
-
-      const lineTotal = product.price * item.qty;
-      total += lineTotal;
-
-      return `
-        <div class="cart-item">
-          <div>
-            <h4>${escapeHTML(product.name)}</h4>
-            <small>${money(product.price)} each</small>
-
-            <div class="qty">
-              <button data-minus="${escapeHTML(item.id)}">−</button>
-              <b>${item.qty}</b>
-              <button data-plus="${escapeHTML(item.id)}">+</button>
-            </div>
-          </div>
-
-          <div style="text-align:right">
-            <b>${money(lineTotal)}</b><br>
-            <button class="remove"
-                    data-remove="${escapeHTML(item.id)}">
-              Remove
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  $('cartTotal').textContent = money(total);
-
-  $('cartItems').querySelectorAll('[data-minus]').forEach(button => {
-    button.onclick = () => changeQuantity(button.dataset.minus, -1);
-  });
-
-  $('cartItems').querySelectorAll('[data-plus]').forEach(button => {
-    button.onclick = () => changeQuantity(button.dataset.plus, 1);
-  });
-
-  $('cartItems').querySelectorAll('[data-remove]').forEach(button => {
-    button.onclick = () => {
-      cart = cart.filter(item => item.id !== button.dataset.remove);
-      saveCart();
-    };
-  });
-
-  localStorage.setItem('primeMobileCart', JSON.stringify(cart));
+function changeQty(i,n){
+  cart[i].quantity+=n;
+  if(cart[i].quantity<=0)cart.splice(i,1);
+  updateCart();
 }
+function removeCart(i){cart.splice(i,1);updateCart();}
+function showCart(){$("cartPanel").classList.remove("hidden");$("cartPanel").scrollIntoView({behavior:"smooth"});}
+function hideCart(){$("cartPanel").classList.add("hidden");}
+function showLogin(){$("loginPanel").classList.remove("hidden");$("loginPanel").scrollIntoView({behavior:"smooth"});}
+function hideLogin(){$("loginPanel").classList.add("hidden");}
 
-function changeQuantity(id, amount) {
-  const item = cart.find(entry => entry.id === id);
-  if (!item) return;
-
-  item.qty += amount;
-
-  if (item.qty <= 0) {
-    cart = cart.filter(entry => entry.id !== id);
-  }
-
-  saveCart();
-}
-
-function openModal(id) {
-  $(id).classList.add('open');
-}
-
-function closeModal(id) {
-  $(id).classList.remove('open');
-}
-
-document.querySelectorAll('[data-close]').forEach(button => {
-  button.onclick = () => closeModal(button.dataset.close);
+$("delivery").addEventListener("change",()=>{
+  $("customerAddress").required=$("delivery").value==="delivery";
 });
 
-document.querySelectorAll('.modal-bg').forEach(modal => {
-  modal.addEventListener('click', event => {
-    if (event.target === modal) closeModal(modal.id);
-  });
-});
-
-$('openCart').onclick = () => {
-  renderCart();
-  openModal('cartModal');
-};
-
-$('checkoutBtn').onclick = () => {
-  if (!cart.length) {
-    showToast('Your cart is empty.');
-    return;
+$("checkoutForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!cart.length){alert("السلة فارغة");return;}
+  if($("delivery").value==="delivery" && !$("customerAddress").value.trim()){
+    alert("اكتب عنوان التوصيل داخل طرابلس");return;
   }
 
-  closeModal('cartModal');
-  openModal('checkoutModal');
-};
-
-$('searchInput').addEventListener('input', renderProducts);
-
-$('payment').addEventListener('change', () => {
-  const messages = {
-    'Cash on delivery':
-      'Pay when you receive your order. The shop will confirm delivery details.',
-    'OMT':
-      'The shop will confirm OMT recipient details. Do not transfer before confirmation.',
-    'USDT':
-      'The shop will confirm the wallet address and network. Do not transfer before confirmation.'
+  const order={
+    customer_name:$("customerName").value.trim(),
+    phone:$("customerPhone").value.trim(),
+    address:$("customerAddress").value.trim(),
+    delivery_method:$("delivery").value,
+    payment_method:$("payment").value,
+    items:cart.map(p=>({id:p.id,name:p.name,price:p.price,quantity:p.quantity})),
+    total:Number(cart.reduce((s,p)=>s+p.price*p.quantity,0).toFixed(2)),
+    notes:$("notes").value.trim(),
+    status:"new"
   };
 
-  $('paymentInfo').textContent = messages[$('payment').value];
+  $("checkoutMessage").textContent="عم نحفظ طلبك...";
+  const {error}=await db.from("orders").insert(order);
+
+  if(error){
+    $("checkoutMessage").textContent="ما قدرنا نحفظ الطلب. جرّب مرة ثانية أو تواصل معنا على واتساب.";
+    return;
+  }
+
+  const lines=order.items.map(p=>`${p.name} × ${p.quantity} — $${money(p.price*p.quantity)}`).join("\n");
+  const message=`طلب جديد من Prime Mobile\nالاسم: ${order.customer_name}\nالهاتف: ${order.phone}\nالعنوان: ${order.address}\nالتوصيل: ${order.delivery_method}\nالدفع: ${order.payment_method}\n\n${lines}\n\nالمجموع: $${money(order.total)}\nملاحظات: ${order.notes}`;
+  const wa="https://wa.me/96176378755?text="+encodeURIComponent(message);
+  $("checkoutMessage").innerHTML=`تم تسجيل الطلب بنجاح ❤️<br><a href="${wa}" target="_blank" rel="noopener">اضغط هون لإرسال تفاصيل الطلب على واتساب</a>`;
+  cart=[];
+  updateCart();
 });
 
-$('checkoutForm').addEventListener('submit', event => {
-  event.preventDefault();
-
-  if (!cart.length) {
-    showToast('Your cart is empty.');
+/* تسجيل دخول الإدارة — لا يوجد تسجيل عام من الموقع */
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  $("loginMessage").textContent="عم نسجّل الدخول...";
+  const {data,error}=await db.auth.signInWithPassword({
+    email:$("adminEmail").value.trim(),
+    password:$("adminPassword").value
+  });
+  if(error){
+    $("loginMessage").textContent="فشل الدخول. تأكد من البريد وكلمة المرور.";
     return;
   }
-
-  const name = $('customerName').value.trim();
-  const phone = $('customerPhone').value.trim();
-  const address = $('customerAddress').value.trim();
-  const delivery = $('delivery').value;
-  const payment = $('payment').value;
-  const notes = $('notes').value.trim();
-
-  if (!name || !phone || !address) {
-    showToast('Please fill in all required fields.');
-    return;
-  }
-
-  const items = cart.map(item => {
-    const product = products.find(p => p.id === item.id);
-
-    if (!product || getPrice(product) === null) return null;
-
-    return {
-      name: product.name,
-      qty: item.qty,
-      price: product.price,
-      subtotal: product.price * item.qty
-    };
-  }).filter(Boolean);
-
-  if (!items.length) {
-    showToast('Please add a product with a confirmed price.');
-    return;
-  }
-
-  const total = items.reduce((sum, item) => sum + item.subtotal, 0);
-
-  const orderReference =
-    'PM-' + Date.now().toString().slice(-8);
-
-  const orderMessage = [
-    '🛍️ PRIME MOBILE — NEW ORDER',
-    'Order reference: ' + orderReference,
-    '',
-    ...items.map(item =>
-      `${item.name} x${item.qty} — ${money(item.subtotal)}`
-    ),
-    '',
-    'TOTAL: ' + money(total),
-    '',
-    'Customer: ' + name,
-    'Phone: ' + phone,
-    'Address: ' + address,
-    'Delivery: ' + delivery,
-    'Payment: ' + payment,
-    'Notes: ' + (notes || 'None'),
-    '',
-    'Please confirm the order and availability.'
-  ].join('\n');
-
-  const whatsappURL =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=` +
-    encodeURIComponent(orderMessage);
-
-  /*
-    IMPORTANT:
-    This version prepares the order and opens WhatsApp.
-    It does NOT yet save orders to a central database.
-    Database and admin dashboard will be configured separately.
-  */
-
-  closeModal('checkoutModal');
-
-  $('checkoutForm').reset();
-
-  cart = [];
-  saveCart();
-
-  window.open(whatsappURL, '_blank');
-
-  showToast('Order prepared! Please send the WhatsApp message.');
+  sessionUser=data.user;
+  hideLogin();
+  await loadAdmin();
 });
 
-$('themeBtn').onclick = () => {
-  document.body.classList.toggle('light');
+async function loadAdmin(){
+  const {data:{user}}=await db.auth.getUser();
+  sessionUser=user;
+  if(!user){$("adminMessage").textContent="سجّل الدخول أولاً.";return;}
+  $("adminPanel").classList.remove("hidden");
+  $("adminPanel").scrollIntoView({behavior:"smooth"});
+  $("adminMessage").textContent="تم تسجيل الدخول: "+user.email;
+  await loadAdminProducts();
+  await loadAdminOrders();
+}
 
-  $('themeBtn').textContent =
-    document.body.classList.contains('light') ? '🌙' : '☀️';
-};
+async function loadAdminProducts(){
+  const {data,error}=await db.from("products").select("*").order("created_at",{ascending:false});
+  if(error){$("adminProducts").textContent="تعذّر تحميل المنتجات.";return;}
+  $("adminProducts").innerHTML=(data||[]).map(p=>`
+    <div class="order">
+      <b>${escapeHtml(p.name)}</b> — $${money(p.price)} — الكمية: ${p.stock}
+      <br>القسم: ${escapeHtml(p.category)} — ${p.active?"ظاهر":"مخفي"}
+      <br><button onclick="toggleProduct('${p.id}',${!p.active})">${p.active?"إخفاء المنتج":"إظهار المنتج"}</button>
+      <button onclick="deleteProduct('${p.id}')">حذف</button>
+    </div>`).join("")||"لا توجد منتجات محفوظة في قاعدة البيانات.";
+}
 
-$('year').textContent = new Date().getFullYear();
+async function loadAdminOrders(){
+  const {data,error}=await db.from("orders").select("*").order("created_at",{ascending:false}).limit(100);
+  if(error){$("adminOrders").textContent="تعذّر تحميل الطلبات.";return;}
+  $("adminOrders").innerHTML=(data||[]).map(o=>`
+    <div class="order">
+      <b>طلب ${escapeHtml(o.customer_name)}</b> — $${money(o.total)}
+      <br>الهاتف: ${escapeHtml(o.phone)}
+      <br>العنوان: ${escapeHtml(o.address)}
+      <br>الحالة: ${escapeHtml(o.status)}
+      <br>التفاصيل: ${escapeHtml(JSON.stringify(o.items))}
+      <br><button onclick="setOrderStatus('${o.id}','processing')">قيد التجهيز</button>
+      <button onclick="setOrderStatus('${o.id}','completed')">مكتمل</button>
+      <button onclick="setOrderStatus('${o.id}','cancelled')">ملغي</button>
+    </div>`).join("")||"ما في طلبات بعد.";
+}
 
-renderCategories();
-renderProducts();
-renderCart();
+function showProductForm(){$("productFormArea").classList.toggle("hidden");}
+
+$("productForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!sessionUser){alert("سجّل الدخول أولاً");return;}
+  const item={
+    name:$("pName").value.trim(),
+    category:$("pCategory").value.trim(),
+    price:Number($("pPrice").value),
+    stock:Number($("pStock").value),
+    image_url:$("pImage").value.trim(),
+    description:$("pDesc").value.trim(),
+    active:true
+  };
+  const {error}=await db.from("products").insert(item);
+  if(error){alert("تعذّرت إضافة المنتج. تأكد من صلاحيات قاعدة البيانات.");return;}
+  $("productForm").reset();
+  alert("انضاف المنتج!");
+  await loadProducts();
+  await loadAdminProducts();
+});
+
+async function toggleProduct(id,active){
+  const {error}=await db.from("products").update({active}).eq("id",id);
+  if(error){alert("تعذّر تعديل المنتج");return;}
+  await loadProducts();await loadAdminProducts();
+}
+
+async function deleteProduct(id){
+  if(!confirm("متأكد إنك بدك تحذف هالمنتج؟"))return;
+  const {error}=await db.from("products").delete().eq("id",id);
+  if(error){alert("تعذّر حذف المنتج");return;}
+  await loadProducts();await loadAdminProducts();
+}
+
+async function setOrderStatus(id,status){
+  const {error}=await db.from("orders").update({status}).eq("id",id);
+  if(error){alert("تعذّر تحديث حالة الطلب");return;}
+  await loadAdminOrders();
+}
+
+async function logout(){
+  await db.auth.signOut();
+  sessionUser=null;
+  $("adminPanel").classList.add("hidden");
+  alert("تم تسجيل الخروج");
+}
+
+async function restoreSession(){
+  const {data:{session}}=await db.auth.getSession();
+  if(session){sessionUser=session.user;}
+}
+
+restoreSession();
+loadProducts();
+updateCart();
 </script>
-
 </body>
 </html>
