@@ -3,312 +3,344 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prime Mobile | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Mobile | Admin Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#101f33;--blue:#2388ff;--text:#edf5ff;--muted:#9bb0c9;--border:#263b55}
 *{box-sizing:border-box}
-body{margin:0;background:#071426;color:#f4f7ff;font-family:Arial,sans-serif;padding:20px}
-main{max-width:1000px;margin:25px auto}
-.card{background:#10223b;border:1px solid #294463;border-radius:16px;padding:20px;margin-bottom:18px}
-h1,h2{color:#70b3ff}
-input,select,textarea,button{width:100%;padding:12px;margin:7px 0;border-radius:9px;border:1px solid #385575;background:#071426;color:white;font-size:15px}
-button{background:#1976e9;border:0;font-weight:bold;cursor:pointer}
-button.danger{background:#b83245}
-button.secondary{background:#34516f}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.hidden{display:none}
-.product{padding:12px;border:1px solid #294463;border-radius:12px;margin:10px 0;display:grid;grid-template-columns:75px 1fr;gap:12px;align-items:center}
-.product img{width:75px;height:75px;object-fit:cover;border-radius:8px;background:#203650}
-.small{font-size:13px;color:#b9cce2}
-#status{white-space:pre-wrap;color:#9ed0ff}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;padding:20px}
+main{max-width:1050px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+h1{margin:0;color:#62aaff}h2{margin-top:0}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px}
+input,select,textarea{width:100%;padding:12px;margin:6px 0 14px;background:#071525;border:1px solid var(--border);border-radius:8px;color:var(--text);font:inherit}
+textarea{min-height:85px;resize:vertical}
+label{font-size:14px;color:var(--muted)}
+button{border:0;border-radius:8px;padding:11px 15px;background:var(--blue);color:white;font-weight:bold;cursor:pointer;margin:3px}
+button.secondary{background:#30435c}button.danger{background:#c83c4b}
+button:disabled{opacity:.5;cursor:wait}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#status{white-space:pre-wrap;margin:12px 0;color:#9ed0ff}
+.product{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.product img{width:72px;height:72px;object-fit:cover;border-radius:9px;background:#071525}
+.product-info{flex:1;min-width:0;overflow-wrap:anywhere}
+.product-info p{margin:5px 0;color:var(--muted);font-size:14px}
+.hidden{display:none!important}
+#products{margin-top:12px}
+@media(max-width:600px){body{padding:12px}.grid{grid-template-columns:1fr}.product{align-items:flex-start}.product img{width:58px;height:58px}.product button{padding:9px}}
 </style>
 </head>
 <body>
 <main>
-  <section class="card">
+<header>
+  <div>
     <h1>Prime Mobile</h1>
-    <p>Store Administration</p>
-    <p class="small">Sign in to manage products in your Supabase database.</p>
-  </section>
+    <p style="color:#9bb0c9;margin-bottom:0">Store Admin Dashboard</p>
+  </div>
+  <button id="logoutBtn" class="secondary hidden" type="button">Log Out</button>
+</header>
 
-  <section class="card" id="login">
-    <h2>Admin Login</h2>
-    <input id="url" type="url" value="https://jkdlqtmspsxssxpotnhr.supabase.co" placeholder="Supabase Project URL">
-    <input id="key" type="password" placeholder="sb_publishable_...">
-    <input id="email" type="email" placeholder="Your Supabase account email" autocomplete="username">
-    <input id="password" type="password" placeholder="Your password" autocomplete="current-password">
-    <button id="loginBtn" type="button">Sign In</button>
-  </section>
+<section id="loginPanel" class="panel">
+  <h2>Admin Login</h2>
+  <label for="email">Email</label>
+  <input id="email" type="email" autocomplete="username" placeholder="Admin email">
+  <label for="password">Password</label>
+  <input id="password" type="password" autocomplete="current-password" placeholder="Password">
+  <button id="loginBtn" type="button">Log In</button>
+</section>
 
-  <section class="card hidden" id="dashboard">
-    <div class="grid">
-      <div><h2>Products</h2></div>
-      <div><button class="secondary" id="refreshBtn" type="button">Refresh Products</button></div>
-      <div><button class="danger" id="logoutBtn" type="button">Sign Out</button></div>
-    </div>
-    <p id="status">Ready.</p>
-  </section>
-
-  <section class="card hidden" id="editor">
-    <h2 id="formTitle">Add Product</h2>
+<section id="dashboard" class="hidden">
+  <section class="panel">
+    <h2 id="formTitle">Add New Product</h2>
     <form id="productForm">
-      <input id="productId" type="hidden">
-      <label>Product name</label>
-      <input id="name" required maxlength="120" placeholder="e.g. Moxom Fast Charger">
-      <label>Category</label>
-      <select id="category">
-        <option>Accessories</option>
-        <option>Phones</option>
-        <option>Recharge & Internet</option>
-        <option>Services</option>
-      </select>
-      <label>Price (USD)</label>
-      <input id="price" type="number" min="0" step="0.01" required placeholder="8.00">
-      <label>Stock quantity</label>
-      <input id="stock" type="number" min="0" step="1" required value="0">
-      <label>Description</label>
-      <textarea id="description" rows="3" placeholder="Product details and warranty"></textarea>
-      <label>Product photo</label>
-      <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
-      <label><input id="active" type="checkbox" checked style="width:auto"> Show in store</label>
+      <label for="name">Product Name *</label>
+      <input id="name" required maxlength="150" placeholder="e.g. Moxom Fast Charger">
+
+      <div class="grid">
+        <div>
+          <label for="category">Category *</label>
+          <select id="category" required>
+            <option value="Accessories">Accessories</option>
+            <option value="Phones">Phones</option>
+            <option value="Recharge & Internet">Recharge & Internet</option>
+            <option value="Services">Services</option>
+          </select>
+        </div>
+        <div>
+          <label for="price">Price (USD) *</label>
+          <input id="price" type="number" min="0" step="0.01" required placeholder="8">
+        </div>
+      </div>
+
+      <label for="description">Description</label>
+      <textarea id="description" maxlength="2000" placeholder="Product details and warranty"></textarea>
+
+      <label for="imageFile">Product Image (optional)</label>
+      <input id="imageFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+
+      <label for="image_url">Or Image URL</label>
+      <input id="image_url" type="url" placeholder="https://...">
+
+      <label for="stock_quantity">Stock Quantity</label>
+      <input id="stock_quantity" type="number" min="0" step="1" value="1">
+
+      <label><input id="is_active" type="checkbox" checked style="width:auto;margin:0 8px 0 0">Show product on store</label>
+      <p id="status" role="status"></p>
       <button id="saveBtn" type="submit">Save Product</button>
-      <button class="secondary" id="cancelBtn" type="button">Clear Form</button>
+      <button id="cancelBtn" class="secondary hidden" type="button">Cancel Edit</button>
+      <button id="refreshBtn" class="secondary" type="button">Refresh Products</button>
     </form>
   </section>
 
-  <section class="card hidden" id="listSection">
-    <h2>Product Inventory</h2>
-    <div id="products"></div>
+  <section class="panel">
+    <h2>Products</h2>
+    <input id="filter" placeholder="Search products..." aria-label="Search products">
+    <div id="products">Loading products...</div>
   </section>
+</section>
 </main>
 
 <script>
 (() => {
+  const SUPABASE_URL = "https://jkdlqtmspsxssxpotnhr.supabase.co";
+
+  // Paste your Supabase publishable key between the quotes below.
+  // Use the sb_publishable_ key, NOT the service_role secret.
+  const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+
   const $ = id => document.getElementById(id);
+  const status = message => $("status").textContent = message;
   let db = null;
-  let currentUser = null;
-  let products = [];
+  let editingId = null;
+  let productCache = [];
 
-  function status(message) {
-    $("status").textContent = message;
+  function showDashboard(signedIn) {
+    $("loginPanel").classList.toggle("hidden", signedIn);
+    $("dashboard").classList.toggle("hidden", !signedIn);
+    $("logoutBtn").classList.toggle("hidden", !signedIn);
   }
 
-  function showDashboard(show) {
-    $("login").classList.toggle("hidden", show);
-    $("dashboard").classList.toggle("hidden", !show);
-    $("editor").classList.toggle("hidden", !show);
-    $("listSection").classList.toggle("hidden", !show);
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? "").replace(/[&<>"']/g, c => ({
-      "&":"&amp;", "<":"&lt;", ">":"&gt;",
-      '"':"&quot;", "'":"&#39;"
-    })[c]);
-  }
-
-  function clearForm() {
+  function resetForm() {
+    editingId = null;
     $("productForm").reset();
-    $("productId").value = "";
-    $("stock").value = "0";
-    $("active").checked = true;
-    $("formTitle").textContent = "Add Product";
+    $("stock_quantity").value = 1;
+    $("is_active").checked = true;
+    $("formTitle").textContent = "Add New Product";
     $("saveBtn").textContent = "Save Product";
+    $("cancelBtn").classList.add("hidden");
+    status("");
+    $("imageFile").value = "";
+    $("image_url").value = "";
   }
 
   async function loadProducts() {
-    status("Loading products...");
-    const {data, error} = await db.from("products")
-      .select("*").order("created_at", {ascending:false});
+    $("products").textContent = "Loading products...";
+    const { data, error } = await db.from("products")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (error) {
-      status("Could not load products: " + error.message);
+      $("products").textContent = "Could not load products: " + error.message;
       return;
     }
 
-    products = data || [];
-    $("products").innerHTML = products.length ? products.map(p => `
-      <article class="product">
-        <img src="${escapeHtml(p.image_url || "")}" alt=""
-          onerror="this.style.visibility='hidden'">
-        <div>
-          <strong>${escapeHtml(p.name)}</strong>
-          <p class="small">${escapeHtml(p.category)} · $${Number(p.price).toFixed(2)}
-          · Stock: ${Number(p.stock_quantity)} · ${p.is_active ? "Active" : "Hidden"}</p>
-          <button type="button" data-edit="${p.id}">Edit</button>
-          <button type="button" class="danger" data-delete="${p.id}">Delete</button>
-        </div>
-      </article>
-    `).join("") : "<p>No products found yet.</p>";
+    productCache = data || [];
+    renderProducts();
+  }
 
-    status("Loaded " + products.length + " products.");
+  function renderProducts() {
+    const query = $("filter").value.trim().toLowerCase();
+    const shown = productCache.filter(p =>
+      [p.name, p.category, p.description].join(" ").toLowerCase().includes(query)
+    );
+
+    $("products").replaceChildren();
+
+    if (!shown.length) {
+      $("products").textContent = "No products found.";
+      return;
+    }
+
+    shown.forEach(p => {
+      const card = document.createElement("article");
+      card.className = "product";
+
+      const img = document.createElement("img");
+      img.alt = p.name || "Product";
+      img.src = p.image_url || "";
+      img.onerror = () => { img.style.display = "none"; };
+
+      const info = document.createElement("div");
+      info.className = "product-info";
+
+      const title = document.createElement("strong");
+      title.textContent = p.name || "Unnamed product";
+
+      const details = document.createElement("p");
+      details.textContent = `${p.category || ""} · $${Number(p.price || 0).toFixed(2)} · Stock: ${p.stock_quantity ?? 0}`;
+
+      const active = document.createElement("p");
+      active.textContent = p.is_active ? "Visible on store" : "Hidden from store";
+
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.textContent = "Edit";
+      edit.addEventListener("click", () => editProduct(p));
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "danger";
+      del.textContent = "Delete";
+      del.addEventListener("click", () => deleteProduct(p));
+
+      info.append(title, details, active, edit, del);
+      card.append(img, info);
+      $("products").append(card);
+    });
+  }
+
+  function editProduct(p) {
+    editingId = p.id;
+    $("name").value = p.name || "";
+    $("category").value = p.category || "Accessories";
+    $("price").value = p.price ?? 0;
+    $("description").value = p.description || "";
+    $("image_url").value = p.image_url || "";
+    $("stock_quantity").value = p.stock_quantity ?? 0;
+    $("is_active").checked = p.is_active !== false;
+    $("imageFile").value = "";
+    $("formTitle").textContent = "Edit Product";
+    $("saveBtn").textContent = "Update Product";
+    $("cancelBtn").classList.remove("hidden");
+    status("Editing: " + (p.name || "product"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function uploadImage(file) {
+    if (!file) return null;
+
+    const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    if (!allowed.includes(file.type)) throw new Error("Choose a JPG, PNG, WEBP or GIF image.");
+    if (file.size > 5 * 1024 * 1024) throw new Error("Image must be smaller than 5 MB.");
+
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+    const { error } = await db.storage.from("product-images").upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type
+    });
+    if (error) throw error;
+
+    const { data } = db.storage.from("product-images").getPublicUrl(path);
+    return data.publicUrl;
   }
 
   $("loginBtn").addEventListener("click", async () => {
-    const projectUrl = $("url").value.trim().replace(/\/+$/, "");
-    const publishableKey = $("key").value.trim();
+    if (!db) return;
     const email = $("email").value.trim();
     const password = $("password").value;
-
-    if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(projectUrl) ||
-        !publishableKey.startsWith("sb_publishable_") ||
-        !email || !password) {
-      alert("Enter your Project URL, sb_publishable key, email and password.");
+    if (!email || !password) {
+      alert("Enter your admin email and password.");
       return;
     }
 
     $("loginBtn").disabled = true;
     $("loginBtn").textContent = "Signing in...";
+    const { error } = await db.auth.signInWithPassword({ email, password });
+    $("loginBtn").disabled = false;
+    $("loginBtn").textContent = "Log In";
 
-    try {
-      db = window.supabase.createClient(projectUrl, publishableKey);
-      const {data, error} = await db.auth.signInWithPassword({email, password});
-
-      if (error) throw error;
-      currentUser = data.user;
-
-      if (!currentUser) throw new Error("No user returned.");
-
-      showDashboard(true);
-      $("key").value = "";
-      $("password").value = "";
-      await loadProducts();
-    } catch (error) {
-      alert("Sign-in failed: " + error.message);
-    } finally {
-      $("loginBtn").disabled = false;
-      $("loginBtn").textContent = "Sign In";
+    if (error) {
+      alert("Login failed: " + error.message);
+      return;
     }
+    showDashboard(true);
+    await loadProducts();
+  });
+
+  $("logoutBtn").addEventListener("click", async () => {
+    await db.auth.signOut();
+    showDashboard(false);
+    resetForm();
   });
 
   $("productForm").addEventListener("submit", async event => {
     event.preventDefault();
-    if (!db || !currentUser) return;
+    if (!db) return;
 
-    const saveButton = $("saveBtn");
-    saveButton.disabled = true;
-    saveButton.textContent = "Saving...";
-
-    let uploadedPath = null;
+    const save = $("saveBtn");
+    save.disabled = true;
+    save.textContent = "Saving...";
+    status("Saving product...");
 
     try {
-      const id = $("productId").value;
-      let imageUrl = id
-        ? (products.find(p => String(p.id) === id)?.image_url || null)
-        : null;
+      let imageUrl = $("image_url").value.trim();
+      const file = $("imageFile").files[0];
+      if (file) imageUrl = await uploadImage(file);
 
-      const file = $("photo").files[0];
-
-      if (file) {
-        if (!["image/jpeg","image/png","image/webp"].includes(file.type)) {
-          throw new Error("Use a JPG, PNG or WebP image.");
-        }
-        if (file.size > 5 * 1024 * 1024) {
-          throw new Error("Image must be smaller than 5 MB.");
-        }
-
-        const ext = file.type === "image/png" ? "png" :
-                    file.type === "image/webp" ? "webp" : "jpg";
-        const path = currentUser.id + "/" + crypto.randomUUID() + "." + ext;
-
-        const {error: uploadError} = await db.storage
-          .from("product-images")
-          .upload(path, file, {contentType:file.type, upsert:false});
-
-        if (uploadError) throw uploadError;
-        uploadedPath = path;
-
-        const {data: publicData} = db.storage
-          .from("product-images").getPublicUrl(path);
-        imageUrl = publicData.publicUrl;
-      }
-
-      const item = {
+      const product = {
         name: $("name").value.trim(),
         category: $("category").value,
         price: Number($("price").value),
         description: $("description").value.trim(),
-        stock_quantity: Number($("stock").value),
-        is_active: $("active").checked,
-        image_url: imageUrl,
+        image_url: imageUrl || null,
+        stock_quantity: Math.max(0, parseInt($("stock_quantity").value || "0", 10)),
+        is_active: $("is_active").checked,
         updated_at: new Date().toISOString()
       };
 
-      if (!item.name || !Number.isFinite(item.price) || item.price < 0 ||
-          !Number.isInteger(item.stock_quantity) || item.stock_quantity < 0) {
-        throw new Error("Check the name, price and stock quantity.");
+      let result;
+      if (editingId !== null) {
+        result = await db.from("products").update(product).eq("id", editingId);
+      } else {
+        result = await db.from("products").insert(product);
       }
-
-      const result = id
-        ? await db.from("products").update(item).eq("id", Number(id)).select()
-        : await db.from("products").insert(item).select();
 
       if (result.error) throw result.error;
-      if (!result.data || result.data.length === 0) {
-        throw new Error("No row was saved. Check your account permissions.");
-      }
 
-      clearForm();
-      await loadProducts();
+      resetForm();
       status("Product saved successfully.");
+      await loadProducts();
     } catch (error) {
-      status("Save failed: " + error.message);
-      alert("Save failed: " + error.message);
-      if (uploadedPath) {
-        status("Upload completed, but product save failed. Image path: " + uploadedPath);
-      }
+      status("Error: " + (error.message || "Something went wrong."));
     } finally {
-      saveButton.disabled = false;
-      saveButton.textContent = "Save Product";
+      save.disabled = false;
+      save.textContent = editingId !== null ? "Update Product" : "Save Product";
     }
   });
 
-  $("products").addEventListener("click", async event => {
-    const editId = event.target.dataset.edit;
-    const deleteId = event.target.dataset.delete;
-
-    if (editId) {
-      const p = products.find(x => String(x.id) === editId);
-      if (!p) return;
-
-      $("productId").value = p.id;
-      $("name").value = p.name || "";
-      $("category").value = p.category || "Accessories";
-      $("price").value = p.price;
-      $("stock").value = p.stock_quantity ?? 0;
-      $("description").value = p.description || "";
-      $("active").checked = !!p.is_active;
-      $("photo").value = "";
-      $("formTitle").textContent = "Edit Product";
-      $("saveBtn").textContent = "Update Product";
-      window.scrollTo({top:0, behavior:"smooth"});
+  async function deleteProduct(p) {
+    if (!confirm(`Delete "${p.name}"? This cannot be undone.`)) return;
+    const { error } = await db.from("products").delete().eq("id", p.id);
+    if (error) {
+      alert("Delete failed: " + error.message);
+      return;
     }
+    await loadProducts();
+  }
 
-    if (deleteId) {
-      const p = products.find(x => String(x.id) === deleteId);
-      if (!p || !confirm("Delete " + p.name + "? This cannot be undone.")) return;
+  $("cancelBtn").addEventListener("click", resetForm);
+  $("refreshBtn").addEventListener("click", loadProducts);
+  $("filter").addEventListener("input", renderProducts);
 
-      const {error} = await db.from("products").delete().eq("id", Number(deleteId));
+  if (SUPABASE_PUBLISHABLE_KEY === "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE") {
+    alert("Before using the dashboard, open admin.html in GitHub and replace PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE with your Supabase sb_publishable_ key.");
+  } else {
+    db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    db.auth.getSession().then(async ({ data, error }) => {
       if (error) {
-        alert("Delete failed: " + error.message);
+        alert("Could not check login session: " + error.message);
         return;
       }
-      await loadProducts();
-    }
-  });
-
-  $("refreshBtn").addEventListener("click", loadProducts);
-  $("cancelBtn").addEventListener("click", clearForm);
-
-  $("logoutBtn").addEventListener("click", async () => {
-    if (db) await db.auth.signOut();
-    currentUser = null;
-    products = [];
-    showDashboard(false);
-    $("products").innerHTML = "";
-    status("Signed out.");
-  });
+      if (data.session) {
+        showDashboard(true);
+        await loadProducts();
+      }
+    });
+  }
 })();
 </script>
 </body>
