@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Mobile | Admin Dashboard</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #fff;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .container { max-width: 850px; margin: 35px auto; }
+    .card {
+      background: #10223b;
+      border: 1px solid #233c5d;
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    h1 { color: #64aaff; margin-top: 0; }
+    p { color: #b7c8df; line-height: 1.6; }
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    input {
+      background: #071426;
+      color: white;
+      border: 1px solid #345170;
+    }
+    button {
+      border: 0;
+      background: #2583f5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .note { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>Prime Mobile</h1>
+      <p>Admin Dashboard</p>
+      <p>Secure management for your store products, prices, photos and inventory.</p>
+    </section>
+
+    <section class="card">
+      <h2>Connect Your Store</h2>
+      <p>Next, we'll connect this dashboard to your Supabase project and add secure sign-in.</p>
+      <label for="project">Supabase Project URL</label>
+      <input id="project" type="url"
+        placeholder="https://your-project.supabase.co">
+      <label for="key">Publishable Key</label>
+      <input id="key" type="password"
+        placeholder="sb_publishable_..." autocomplete="off">
+      <button type="button" onclick="saveSetup()">
+        Save connection on this page
+      </button>
+      <p id="status" class="note">
+        Connection isn't active yet.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    function saveSetup() {
+      const project = document.getElementById('project').value.trim();
+      const key = document.getElementById('key').value.trim();
+      const status = document.getElementById('status');
+
+      if (!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test(project) ||
+          !key.startsWith('sb_publishable_')) {
+        status.textContent = 'Check your Project URL and publishable key.';
+        return;
+      }
+
+      status.textContent =
+        'Details validated for this session only. Supabase connection is not implemented yet.';
+    }
+  </script>
+</body>
+</html>
