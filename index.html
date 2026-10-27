@@ -239,6 +239,9 @@ body.light .modal{background:rgba(255,255,255,.98)}
       <a href="#home">Home</a><a href="#products">Shop</a>
       <a href="#services">Services</a><a href="#contact">Contact</a>
     </nav>
+    <button class="iconbtn" id="accountBtn" type="button">
+  Sign In
+</button>
     <div class="actions">
       <button class="iconbtn" id="themeBtn" type="button">☼</button>
       <button class="cartbtn" id="openCart" type="button">Cart <span class="badge" id="cartCount">0</span></button>
@@ -337,6 +340,36 @@ body.light .modal{background:rgba(255,255,255,.98)}
     </form>
   </div>
 </div>
+  
+<div class="overlay" id="accountOverlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modalHead">
+      <h2 id="accountTitle">Welcome Back</h2>
+      <button class="close" id="closeAccount" type="button">✕</button>
+    </div>
+
+    <form class="checkoutForm" id="accountForm">
+      <label for="accountName" id="accountNameLabel" hidden>Full name</label>
+      <input id="accountName" type="text" placeholder="Your full name" autocomplete="name" hidden>
+
+      <label for="accountEmail">Email address</label>
+      <input id="accountEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+
+      <label for="accountPassword">Password</label>
+      <input id="accountPassword" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="current-password" required>
+
+      <button class="btn primary" id="accountSubmit" type="submit">Sign In</button>
+      <button class="btn secondary" id="switchAccountMode" type="button">Create a new account</button>
+      <p id="accountMessage" class="note" role="status"></p>
+    </form>
+
+    <div id="signedInPanel" hidden>
+      <p id="signedInEmail"></p>
+      <button class="btn primary" id="signOutBtn" type="button">Sign Out</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -544,6 +577,204 @@ Please confirm availability and delivery.`;
 
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank");
   });
+
+let accountMode = "signin";
+let currentAccount = null;
+
+const accountOverlay = document.querySelector("#accountOverlay");
+const accountForm = document.querySelector("#accountForm");
+const accountMessage = document.querySelector("#accountMessage");
+
+function setAccountMessage(message) {
+  accountMessage.textContent = message;
+}
+
+function updateAccountUI(user) {
+  currentAccount = user || null;
+
+  const button = document.querySelector("#accountBtn");
+  button.textContent = user
+    ? "My Account"
+    : "Sign In";
+
+  document.querySelector("#accountForm").hidden = !!user;
+  document.querySelector("#signedInPanel").hidden = !user;
+  document.querySelector("#signedInEmail").textContent =
+    user ? user.email : "";
+
+  document.querySelector("#accountTitle").textContent =
+    user ? "My Account" : accountMode === "signup"
+      ? "Create Account" : "Welcome Back";
+}
+
+function openAccount() {
+  updateAccountUI(currentAccount);
+  setAccountMessage("");
+  accountOverlay.classList.add("open");
+}
+
+document.querySelector("#accountBtn").addEventListener("click", openAccount);
+
+document.querySelector("#closeAccount").addEventListener("click", () => {
+  accountOverlay.classList.remove("open");
+});
+
+accountOverlay.addEventListener("click", event => {
+  if (event.target === accountOverlay) {
+    accountOverlay.classList.remove("open");
+  }
+});
+
+document.querySelector("#switchAccountMode").addEventListener("click", () => {
+  accountMode = accountMode === "signin" ? "signup" : "signin";
+
+  const signup = accountMode === "signup";
+  document.querySelector("#accountTitle").textContent =
+    signup ? "Create Account" : "Welcome Back";
+  document.querySelector("#accountSubmit").textContent =
+    signup ? "Create Account" : "Sign In";
+  document.querySelector("#switchAccountMode").textContent =
+    signup ? "Already have an account? Sign In" : "Create a new account";
+  document.querySelector("#accountName").hidden = !signup;
+  document.querySelector("#accountNameLabel").hidden = !signup;
+  document.querySelector("#accountName").required = signup;
+  document.querySelector("#accountPassword").autocomplete =
+    signup ? "new-password" : "current-password";
+
+  setAccountMessage("");
+});
+
+async function authRequest(path, body = null, token = null) {
+  const headers = {
+    "apikey": SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
+
+  if (token) headers.Authorization = "Bearer " + token;
+
+  const response = await fetch(SUPABASE_URL + path, {
+    method: body === null ? "GET" : "POST",
+    headers,
+    ...(body === null ? {} : { body: JSON.stringify(body) })
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.msg || data.message || data.error_description ||
+      data.error || "Something went wrong. Please try again.");
+  }
+
+  return data;
+}
+
+accountForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const email = document.querySelector("#accountEmail").value.trim();
+  const password = document.querySelector("#accountPassword").value;
+  const name = document.querySelector("#accountName").value.trim();
+  const submit = document.querySelector("#accountSubmit");
+
+  submit.disabled = true;
+  setAccountMessage("Please wait...");
+
+  try {
+    let data;
+
+    if (accountMode === "signup") {
+      data = await authRequest("/auth/v1/signup", {
+        email,
+        password,
+        data: { full_name: name }
+      });
+
+      if (!data.access_token) {
+        throw new Error(
+          "Account created, but no session was returned. Check that email confirmation is disabled in Supabase."
+        );
+      }
+    } else {
+      data = await authRequest("/auth/v1/token?grant_type=password", {
+        email,
+        password
+      });
+    }
+
+    if (!data.access_token || !data.user) {
+      throw new Error("No login session was returned. Please try again.");
+    }
+
+    localStorage.setItem("prime_mobile_session", JSON.stringify({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      expires_at: Math.floor(Date.now() / 1000) + (data.expires_in || 3600),
+      user: data.user
+    }));
+
+    updateAccountUI(data.user);
+    accountForm.reset();
+    accountOverlay.classList.remove("open");
+    notify(accountMode === "signup"
+      ? "Welcome to Prime Mobile!"
+      : "Welcome back!");
+
+  } catch (error) {
+    setAccountMessage(error.message);
+  } finally {
+    submit.disabled = false;
+  }
+});
+
+document.querySelector("#signOutBtn").addEventListener("click", async () => {
+  const saved = localStorage.getItem("prime_mobile_session");
+
+  try {
+    if (saved) {
+      const session = JSON.parse(saved);
+      if (session.access_token) {
+        await authRequest(
+          "/auth/v1/logout",
+          {},
+          session.access_token
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Sign out request failed:", error);
+  } finally {
+    localStorage.removeItem("prime_mobile_session");
+    updateAccountUI(null);
+    accountMode = "signin";
+    setAccountMessage("");
+    accountOverlay.classList.remove("open");
+    notify("You have signed out.");
+  }
+});
+
+async function restoreAccountSession() {
+  try {
+    const saved = localStorage.getItem("prime_mobile_session");
+    if (!saved) return;
+
+    const session = JSON.parse(saved);
+    if (!session.access_token) return;
+
+    const data = await authRequest(
+      "/auth/v1/user",
+      null,
+      session.access_token
+    );
+
+    updateAccountUI(data);
+  } catch (error) {
+    console.error("Could not restore account session:", error);
+    localStorage.removeItem("prime_mobile_session");
+    updateAccountUI(null);
+  }
+}
+
+restoreAccountSession();
 
   async function loadProducts() {
     if (SUPABASE_KEY.includes("PASTE_YOUR")) {
