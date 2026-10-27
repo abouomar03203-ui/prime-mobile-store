@@ -6,6 +6,60 @@
 <meta name="theme-color" content="#06152d">
 <meta name="description" content="Prime Mobile — phones, accessories, Alfa, MTC, internet and mobile services in Tripoli, Lebanon.">
 <title>Prime Mobile | Smart Tech. Better Service.</title>
+  
+/* PRIME MOBILE — DARK GLASS EDITION */
+:root {
+  --glass-bg: rgba(15, 28, 55, 0.68);
+  --glass-border: rgba(125, 180, 255, 0.22);
+  --glass-blue: #3995ff;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(0, 105, 255, 0.20), transparent 42%),
+    radial-gradient(ellipse at 85% 65%, rgba(0, 200, 255, 0.10), transparent 38%),
+    #060b16 !important;
+  color: #f3f7ff;
+}
+
+header, nav, .header, .navbar {
+  background: rgba(8, 17, 36, 0.68) !important;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.product, .product-card, .card, .category,
+section, .cart, .search-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+}
+
+button, .btn, .button {
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+button:hover, .btn:hover, .button:hover {
+  box-shadow: 0 0 22px rgba(57, 149, 255, 0.30);
+  transform: translateY(-2px);
+}
+
+input, select, textarea {
+  background: rgba(10, 20, 40, 0.75) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+}
+
+img {
+  border-radius: 14px;
+}
+
 <style>
 :root{--bg:#06101f;--surface:#0b1b33;--surface2:#102746;--text:#f4f8ff;--muted:#aabbd2;--blue:#168cff;--cyan:#42d8ff;--line:rgba(135,190,255,.18);--shadow:0 18px 55px rgba(0,0,0,.28);--good:#35d49a}
 body.light{--bg:#f3f7fc;--surface:#fff;--surface2:#eaf2fc;--text:#101c30;--muted:#5e6e83;--blue:#0969da;--cyan:#087fbd;--line:rgba(20,70,130,.15);--shadow:0 16px 45px rgba(25,55,90,.11)}
