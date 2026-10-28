@@ -417,46 +417,35 @@ body.light {
   background:
     radial-gradient(ellipse at 15% 10%, rgba(80,155,255,.12), transparent 40%),
     #dce6f3 !important;
-}
 
-.light .hero, .light .product, .light .trust-item,
-.light .contact, .light .product-visual, .light .glass {
-  background: linear-gradient(
-    135deg, rgba(255,255,255,.68),
-    rgba(210,230,255,.30),
-    rgba(255,255,255,.43)
-  ) !important;
-  border-color: rgba(255,255,255,.85) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.95),
-              0 12px 35px rgba(50,90,150,.10) !important;
-  backdrop-filter: blur(30px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
-}
+/* PRIME MOBILE — FINAL LIGHT LIQUID GLASS */
 
-/* PRIME MOBILE — LIGHT LIQUID GLASS */
 body.light {
   color-scheme: light !important;
-  --text: #173254;
-  --muted: #617895;
-  --line: rgba(255,255,255,.72);
-  --glass: rgba(255,255,255,.28);
-  --glass2: rgba(255,255,255,.48);
-  --shadow: 0 18px 48px rgba(66,110,170,.12);
+
+  --text: #1b3554;
+  --muted: #526b88;
+  --line: rgba(255,255,255,.38);
+  --glass: rgba(125,154,188,.32);
+  --glass2: rgba(145,174,207,.42);
+  --shadow: 0 18px 45px rgba(37,61,91,.15);
 
   background:
-    radial-gradient(ellipse at 12% 8%, rgba(105,174,255,.16), transparent 42%),
-    radial-gradient(ellipse at 88% 78%, rgba(130,225,255,.12), transparent 42%),
-    linear-gradient(145deg,#e8f1fb,#dce8f5 55%,#edf4fc) !important;
+    radial-gradient(ellipse at 12% 8%, rgba(73,139,220,.18), transparent 42%),
+    radial-gradient(ellipse at 88% 80%, rgba(68,164,190,.14), transparent 42%),
+    linear-gradient(145deg, #aebfd2, #96adc6 55%, #b5c6d8) !important;
+
   background-attachment: fixed !important;
 }
 
 body.light header,
 body.light .site-header {
-  background: rgba(239,247,255,.42) !important;
-  border-color: rgba(255,255,255,.78) !important;
-  box-shadow: 0 8px 30px rgba(70,110,165,.08) !important;
-  backdrop-filter: blur(32px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+  background: rgba(133,158,187,.42) !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.42),
+              0 10px 28px rgba(37,61,91,.10) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
 }
 
 body.light .hero,
@@ -465,23 +454,24 @@ body.light .trust-item,
 body.light .contact,
 body.light .product-visual,
 body.light .glass {
-  color: #173254 !important;
-  background:
-    linear-gradient(135deg,
-      rgba(255,255,255,.68),
-      rgba(255,255,255,.27) 52%,
-      rgba(179,215,255,.22)) !important;
-  border: 1px solid rgba(255,255,255,.82) !important;
+  color: #1b3554 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(191,211,233,.60),
+    rgba(119,151,187,.38) 52%,
+    rgba(165,191,218,.48)
+  ) !important;
+  border: 1px solid rgba(255,255,255,.40) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),
-    inset 1px 0 0 rgba(255,255,255,.48),
-    0 14px 40px rgba(64,105,160,.10) !important;
-  backdrop-filter: blur(30px) saturate(185%) !important;
-  -webkit-backdrop-filter: blur(30px) saturate(185%) !important;
+    inset 0 1px 0 rgba(255,255,255,.48),
+    inset 1px 0 0 rgba(255,255,255,.16),
+    0 14px 35px rgba(37,61,91,.13) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
 }
 
 body.light .hero h1 span {
-  background: linear-gradient(100deg,#234b83,#2782e8,#36a9ce);
+  background: linear-gradient(100deg,#234b83,#187ed1,#218fa9);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -490,8 +480,9 @@ body.light .hero p,
 body.light .desc,
 body.light .section-desc,
 body.light .trust-item p,
-body.light .contact p {
-  color: #617895 !important;
+body.light .contact p,
+body.light footer {
+  color: #425d7b !important;
 }
 
 body.light .filter,
@@ -499,9 +490,9 @@ body.light .search input,
 body.light .field input,
 body.light .field textarea,
 body.light .close {
-  color: #173254 !important;
-  background: rgba(255,255,255,.34) !important;
-  border-color: rgba(255,255,255,.82) !important;
+  color: #1b3554 !important;
+  background: rgba(119,151,187,.30) !important;
+  border: 1px solid rgba(255,255,255,.40) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
 }
@@ -510,92 +501,34 @@ body.light .filter.active,
 body.light .btn.primary {
   color: #fff !important;
   background: linear-gradient(135deg,#60b7ff,#347cf0) !important;
-  border-color: rgba(255,255,255,.8) !important;
+  border-color: rgba(255,255,255,.55) !important;
 }
 
 body.light .btn:not(.primary) {
-  color: #23466e !important;
-  background: rgba(255,255,255,.32) !important;
-  border-color: rgba(255,255,255,.8) !important;
+  color: #1b3554 !important;
+  background: rgba(119,151,187,.30) !important;
+  border-color: rgba(255,255,255,.40) !important;
 }
 
 body.light .modal {
-  color: #173254 !important;
+  color: #1b3554 !important;
   background: linear-gradient(
-    145deg,rgba(255,255,255,.82),rgba(222,237,255,.78)
+    145deg,
+    rgba(169,192,218,.94),
+    rgba(128,157,190,.94)
   ) !important;
-  border-color: rgba(255,255,255,.9) !important;
-  box-shadow: inset 0 1px 0 #fff,
-              0 25px 75px rgba(48,87,145,.2) !important;
-  backdrop-filter: blur(35px) saturate(185%) !important;
-  -webkit-backdrop-filter: blur(35px) saturate(185%) !important;
+  border-color: rgba(255,255,255,.48) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.48),
+              0 25px 65px rgba(37,61,91,.20) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
 }
 
 body.light .tag,
 body.light .trust-icon {
-  color: #2878d6;
+  color: #176fc5 !important;
 }
 
-body.light footer {
-  color: #617895;
-  border-color: rgba(255,255,255,.65);
-}
-
-/* SOFT BLUE GLASS — LESS WHITE */
-body.light {
-  background:
-    radial-gradient(ellipse at 15% 10%, rgba(95,155,230,.15), transparent 45%),
-    radial-gradient(ellipse at 85% 85%, rgba(100,190,220,.12), transparent 45%),
-    linear-gradient(145deg, #d5e1ef, #cbd9e9 55%, #e0e9f3) !important;
-
-  --text: #1b3554 !important;
-  --muted: #526b88 !important;
-  --line: rgba(255,255,255,.48) !important;
-  --glass: rgba(207,224,243,.42) !important;
-  --glass2: rgba(220,234,248,.55) !important;
-}
-
-body.light header,
-body.light .site-header {
-  background: rgba(202,220,240,.48) !important;
-  border-color: rgba(255,255,255,.55) !important;
-}
-
-body.light .hero,
-body.light .product,
-body.light .trust-item,
-body.light .contact,
-body.light .product-visual,
-body.light .glass {
-  background: linear-gradient(
-    135deg,
-    rgba(226,238,250,.62),
-    rgba(190,211,236,.38) 55%,
-    rgba(210,230,246,.48)
-  ) !important;
-
-  border-color: rgba(255,255,255,.58) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.72),
-    0 12px 32px rgba(53,83,125,.10) !important;
-}
-
-body.light .filter,
-body.light .search input,
-body.light .field input,
-body.light .field textarea,
-body.light .close {
-  background: rgba(195,215,238,.42) !important;
-  border-color: rgba(255,255,255,.58) !important;
-}
-
-body.light .modal {
-  background: linear-gradient(
-    145deg,
-    rgba(216,231,247,.94),
-    rgba(190,211,236,.94)
-  ) !important;
-}
 
 </style>
 </head>
