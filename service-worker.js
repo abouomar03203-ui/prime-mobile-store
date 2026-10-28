@@ -1,17 +1,9 @@
 
-const CACHE_NAME = "prime-mobile-v1";
-
-const APP_FILES = [
-  "/prime-mobile-store/",
-  "/prime-mobile-store/index.html",
-  "/prime-mobile-store/manifest.json"
-];
+const CACHE_NAME = "prime-mobile-v2";
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_FILES))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(() => self.skipWaiting())
   );
 });
 
@@ -20,7 +12,10 @@ self.addEventListener("activate", event => {
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(key => key.startsWith("prime-mobile-") && key !== CACHE_NAME)
+          .filter(key =>
+            key.startsWith("prime-mobile-") &&
+            key !== CACHE_NAME
+          )
           .map(key => caches.delete(key))
       )
     ).then(() => self.clients.claim())
@@ -42,9 +37,13 @@ self.addEventListener("fetch", event => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request).catch(() =>
-        caches.match("/prime-mobile-store/index.html")
-      )
+      fetch(request).catch(async () => {
+        const cached = await caches.match(
+          "/prime-mobile-store/index.html"
+        );
+        if (cached) return cached;
+        return Response.error();
+      })
     );
     return;
   }
@@ -56,11 +55,12 @@ self.addEventListener("fetch", event => {
       return fetch(request).then(response => {
         if (response.ok) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          caches.open(CACHE_NAME).then(cache =>
+            cache.put(request, copy)
+          );
         }
         return response;
       });
     })
   );
 });
-
