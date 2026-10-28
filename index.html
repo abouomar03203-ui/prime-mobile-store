@@ -886,25 +886,16 @@ document.querySelector("#signOutBtn").addEventListener("click", async () => {
   }
 });
 
-async function restoreAccountSession() {
-  try {
-    const saved = localStorage.getItem("prime_mobile_session");
-    if (!saved) return;
-
-    const session = JSON.parse(saved);
-    if (!session.access_token) return;
-
-    const data = await authRequest(
-      "/auth/v1/user",
-      null,
-      session.access_token
-    );
-
-    updateAccountUI(data);
+restoreAccountSession
+   updateAccountUI(data);
+document.body.classList.remove("auth-locked");
+accountOverlay.classList.remove("open");
   } catch (error) {
     console.error("Could not restore account session:", error);
-    localStorage.removeItem("prime_mobile_session");
-    updateAccountUI(null);
+  localStorage.removeItem("prime_mobile_session");
+updateAccountUI(null);
+document.body.classList.add("auth-locked");
+accountOverlay.classList.add("open");
   }
 }
 
