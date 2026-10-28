@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06152d">
+  <link rel="manifest" href="/prime-mobile-store/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Prime Mobile — smartphones, accessories, recharge and mobile services in Tripoli, Lebanon.">
 <title>Prime Mobile | Smart Tech. Better Service.</title>
 
@@ -810,5 +812,18 @@ restoreAccountSession();
   loadProducts();
 })();
 </script>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register(
+      "/prime-mobile-store/service-worker.js"
+    ).catch(error => {
+      console.error("Service worker registration failed:", error);
+    });
+  });
+}
+</script>
+</body>
+</html>
 </body>
 </html>
