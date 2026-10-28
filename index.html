@@ -541,6 +541,62 @@ body.light footer {
   border-color: rgba(255,255,255,.65);
 }
 
+/* SOFT BLUE GLASS — LESS WHITE */
+body.light {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(95,155,230,.15), transparent 45%),
+    radial-gradient(ellipse at 85% 85%, rgba(100,190,220,.12), transparent 45%),
+    linear-gradient(145deg, #d5e1ef, #cbd9e9 55%, #e0e9f3) !important;
+
+  --text: #1b3554 !important;
+  --muted: #526b88 !important;
+  --line: rgba(255,255,255,.48) !important;
+  --glass: rgba(207,224,243,.42) !important;
+  --glass2: rgba(220,234,248,.55) !important;
+}
+
+body.light header,
+body.light .site-header {
+  background: rgba(202,220,240,.48) !important;
+  border-color: rgba(255,255,255,.55) !important;
+}
+
+body.light .hero,
+body.light .product,
+body.light .trust-item,
+body.light .contact,
+body.light .product-visual,
+body.light .glass {
+  background: linear-gradient(
+    135deg,
+    rgba(226,238,250,.62),
+    rgba(190,211,236,.38) 55%,
+    rgba(210,230,246,.48)
+  ) !important;
+
+  border-color: rgba(255,255,255,.58) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.72),
+    0 12px 32px rgba(53,83,125,.10) !important;
+}
+
+body.light .filter,
+body.light .search input,
+body.light .field input,
+body.light .field textarea,
+body.light .close {
+  background: rgba(195,215,238,.42) !important;
+  border-color: rgba(255,255,255,.58) !important;
+}
+
+body.light .modal {
+  background: linear-gradient(
+    145deg,
+    rgba(216,231,247,.94),
+    rgba(190,211,236,.94)
+  ) !important;
+}
+
 </style>
 </head>
 
