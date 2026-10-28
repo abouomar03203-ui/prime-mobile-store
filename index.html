@@ -843,9 +843,12 @@ accountForm.addEventListener("submit", async event => {
       user: data.user
     }));
 
-    updateAccountUI(data.user);
-    accountForm.reset();
-    accountOverlay.classList.remove("open");
+  
+updateAccountUI(data.user);
+document.body.classList.remove("auth-locked");
+accountForm.reset();
+accountOverlay.classList.remove("open");
+
     notify(accountMode === "signup"
       ? "Welcome to Prime Mobile!"
       : "Welcome back!");
