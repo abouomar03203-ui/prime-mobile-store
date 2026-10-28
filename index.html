@@ -1,517 +1,22 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#06152d">
-  <link rel="manifest" href="/prime-mobile-store/manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="description" content="Prime Mobile — smartphones, accessories, recharge and mobile services in Tripoli, Lebanon.">
-<title>Prime Mobile | Smart Tech. Better Service.</title>
-
-<style>
-:root {
-  --bg:#06101f;
-  --panel:rgba(13,32,58,.76);
-  --panel2:rgba(20,47,80,.78);
-  --text:#f4f8ff;
-  --muted:#aabbd2;
-  --blue:#168cff;
-  --cyan:#42d8ff;
-  --line:rgba(135,190,255,.2);
-  --good:#35d49a;
-  --shadow:0 18px 55px rgba(0,0,0,.28);
-}
-body.light {
-  --bg:#f3f7fc;
-  --panel:rgba(255,255,255,.8);
-  --panel2:rgba(234,242,252,.88);
-  --text:#101c30;
-  --muted:#5e6e83;
-  --line:rgba(20,70,130,.16);
-  --shadow:0 16px 45px rgba(25,55,90,.11);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{
-  margin:0;
-  color:var(--text);
-  background:radial-gradient(ellipse at 80% 0%,rgba(0,129,255,.18),transparent 42%),var(--bg);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  transition:background .25s,color .25s;
-}
-button,input,textarea{font:inherit}
-button,a{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.wrap{width:min(1160px,92%);margin:auto}
-header{
-  position:sticky;top:0;z-index:20;
-  background:rgba(5,16,32,.76);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-body.light header{background:rgba(245,249,255,.8)}
-.nav{
-  min-height:76px;display:flex;align-items:center;
-  justify-content:space-between;gap:15px;
-}
-.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:1px}
-.brand img{
-  width:47px;height:47px;object-fit:contain;
-  border-radius:12px;border:1px solid var(--line);background:#071a34;
-}
-.brand span{font-size:18px}
-.brand small{display:block;font-size:9px;letter-spacing:2px;color:var(--muted)}
-.navlinks{display:flex;gap:20px;color:var(--muted);font-size:14px}
-.navlinks a:hover{color:var(--cyan)}
-.actions{display:flex;align-items:center;gap:8px}
-.iconbtn,.cartbtn{
-  border:1px solid var(--line);border-radius:12px;
-  padding:10px 12px;background:var(--panel);color:var(--text);
-}
-.cartbtn,.primary{
-  border:0;background:linear-gradient(110deg,var(--blue),#354ee8);
-  color:white;font-weight:800;
-}
-.badge{background:white;color:#0754b5;border-radius:30px;padding:2px 7px;margin-left:3px}
-.hero{
-  padding:65px 0 45px;min-height:430px;
-  display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center;
-}
-.eyebrow{
-  display:inline-block;padding:9px 13px;border:1px solid var(--line);
-  background:var(--panel);backdrop-filter:blur(14px);
-  border-radius:30px;color:var(--cyan);font-size:12px;font-weight:800;
-  letter-spacing:1px;
-}
-h1{font-size:clamp(42px,6vw,74px);line-height:1;letter-spacing:-3px;margin:22px 0}
-h1 em{
-  font-style:normal;background:linear-gradient(90deg,#42d8ff,#2887ff,#9b91ff);
-  color:transparent;background-clip:text;-webkit-background-clip:text;
-}
-.hero p{max-width:560px;color:var(--muted);font-size:17px;line-height:1.8}
-.heroBtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
-.btn{
-  display:inline-flex;justify-content:center;align-items:center;
-  padding:12px 17px;border-radius:13px;font-weight:800;
-  border:1px solid var(--line);transition:.2s;
-}
-.btn:hover{transform:translateY(-2px)}
-.secondary{background:var(--panel);color:var(--text)}
-.heroVisual{display:grid;place-items:center;min-height:300px;position:relative}
-.glow{position:absolute;width:260px;height:260px;border-radius:50%;background:#078fff;filter:blur(85px);opacity:.25}
-.heroLogo{
-  position:relative;width:min(100%,350px);min-height:260px;
-  display:grid;place-items:center;overflow:hidden;
-  border:1px solid rgba(100,190,255,.3);border-radius:26px;
-  background:linear-gradient(135deg,rgba(18,57,102,.76),rgba(5,17,37,.65));
-  backdrop-filter:blur(20px);box-shadow:var(--shadow);
-}
-.heroLogo img{width:90%;max-height:300px;object-fit:contain}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:35px}
-.stat,.product,.service,.contactBox{
-  border:1px solid var(--line);background:var(--panel);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 8px 28px rgba(0,0,0,.08);
-}
-.stat{text-align:center;border-radius:17px;padding:17px 8px}
-.stat strong{display:block;font-size:17px}
-.stat span{font-size:12px;color:var(--muted)}
-section{padding:35px 0 55px}
-.sectionHead{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:18px;margin-bottom:22px;
-}
-.sectionHead h2{font-size:clamp(27px,4vw,40px);margin:0 0 7px;letter-spacing:-1px}
-.sectionHead p{color:var(--muted);margin:0}
-.search{
-  width:min(300px,100%);padding:12px 14px;border-radius:12px;
-  border:1px solid var(--line);background:var(--panel);color:var(--text);outline:none;
-}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.filter{
-  border:1px solid var(--line);border-radius:30px;padding:9px 13px;
-  background:var(--panel);color:var(--muted);
-}
-.filter.active,.filter:hover{background:linear-gradient(100deg,var(--blue),#354ee8);color:white}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.product{padding:15px;border-radius:19px;overflow:hidden;transition:.2s}
-.product:hover{transform:translateY(-4px);border-color:rgba(50,155,255,.55);box-shadow:var(--shadow)}
-.productVisual{
-  height:150px;border-radius:14px;margin-bottom:14px;overflow:hidden;
-  display:grid;place-items:center;font-size:48px;
-  background:radial-gradient(circle,rgba(31,146,255,.25),transparent 70%),var(--panel2);
-}
-.productVisual img{width:100%;height:100%;object-fit:contain}
-.tag{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:1px;text-transform:uppercase}
-.product h3{font-size:16px;margin:7px 0}
-.desc{font-size:12px;line-height:1.6;color:var(--muted);min-height:38px}
-.stock{font-size:11px;font-weight:800;color:var(--good);margin:9px 0}
-.priceRow{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
-.price{font-size:21px;font-weight:900}
-.priceRow small{color:var(--muted)}
-.add,.ask{width:100%;padding:11px;border-radius:11px;font-weight:800}
-.add{border:0;background:linear-gradient(110deg,var(--blue),#354ee8);color:white}
-.ask{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--text)}
-.empty{grid-column:1/-1;text-align:center;padding:30px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
-.services{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.service{padding:19px;border-radius:17px}
-.service i{font-style:normal;font-size:27px}
-.service h3{margin:10px 0 6px}
-.service p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
-.contactBox{
-  border-radius:23px;padding:28px;display:flex;
-  justify-content:space-between;align-items:center;gap:20px;
-  background:linear-gradient(120deg,var(--panel),var(--panel2));
-}
-.contactBox h2{margin:0 0 8px;font-size:clamp(25px,4vw,38px)}
-.contactBox p{color:var(--muted);line-height:1.7;margin:0}
-.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
-.socials a{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-weight:700}
-footer{border-top:1px solid var(--line);padding:23px 0;color:var(--muted);font-size:12px}
-.footerIn{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.overlay{
-  position:fixed;inset:0;z-index:50;display:none;align-items:center;
-  justify-content:center;padding:15px;background:rgba(1,8,20,.7);
-  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
-}
-.overlay.open{display:flex}
-.modal{
-  width:min(560px,100%);max-height:90vh;overflow:auto;
-  background:rgba(8,24,47,.97);border:1px solid var(--line);
-  border-radius:20px;padding:20px;color:var(--text);box-shadow:var(--shadow);
-}
-body.light .modal{background:rgba(255,255,255,.98)}
-.modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
-.modalHead h2{margin:0}
-.close{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:7px 11px}
-.cartItems{display:grid;gap:10px}
-.cartItem{
-  display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
-  padding:12px;border:1px solid var(--line);border-radius:12px;
-}
-.cartItem small{display:block;color:var(--muted);margin-top:5px}
-.qty{display:flex;align-items:center;gap:6px}
-.qty button{width:27px;height:27px;border:1px solid var(--line);border-radius:7px;background:var(--panel2);color:var(--text)}
-.total{display:flex;justify-content:space-between;font-weight:900;font-size:19px;padding:15px 0}
-.checkoutForm{display:grid;gap:9px;margin-top:10px}
-.checkoutForm label{font-size:12px;color:var(--muted)}
-.checkoutForm input,.checkoutForm textarea{
-  width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;
-  background:var(--panel);color:var(--text);
-}
-.checkoutForm textarea{min-height:65px;resize:vertical}
-.checkoutForm .btn{width:100%;cursor:pointer}
-.note{font-size:11px;color:var(--muted);line-height:1.5;margin:0}
-.toast{
-  display:none;position:fixed;z-index:80;bottom:20px;left:50%;
-  transform:translateX(-50%);max-width:90%;padding:12px 18px;
-  border:1px solid var(--line);border-radius:12px;background:#0e2c4f;color:white;
-}
-.toast.show{display:block}
-@media(max-width:900px){
-  .navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:40px}
-  .heroVisual{min-height:270px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .services{grid-template-columns:repeat(2,1fr)}
-  .sectionHead{align-items:stretch;flex-direction:column}.search{width:100%}
-}
-@media(max-width:520px){
-  .nav{min-height:67px}.brand img{width:39px;height:39px}
-  .brand span{font-size:15px}.brand small{font-size:8px;letter-spacing:1.4px}
-  .iconbtn,.cartbtn{padding:9px}.stats{gap:6px}
-  .stat strong{font-size:14px}.stat span{font-size:10px}
-  .grid{gap:9px}.product{padding:10px;border-radius:15px}
-  .productVisual{height:120px}.product h3{font-size:14px}
-  .price{font-size:18px}.services{gap:9px}.service{padding:13px}
-  .contactBox{padding:20px;align-items:flex-start;flex-direction:column}
-}
-  
-/* PRIME MOBILE — PREMIUM GLASS DESIGN */
-body {
-  background:
-    radial-gradient(ellipse at 15% 10%, rgba(0, 140, 255, .25), transparent 42%),
-    radial-gradient(ellipse at 85% 80%, rgba(100, 80, 255, .16), transparent 38%),
-    linear-gradient(135deg, #030814, #081a35 55%, #030814);
-  background-attachment: fixed;
-}
-
-header,
-.stat,
-.product,
-.service,
-.contactBox,
-.heroLogo,
-.filter,
-.search,
-.iconbtn,
-.cartbtn {
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-}
-
-.product,
-.stat,
-.service,
-.contactBox,
-.heroLogo {
-  border-color: rgba(150, 200, 255, .24);
-  box-shadow: 0 16px 45px rgba(0, 0, 0, .18);
-}
-
-.product {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, .09),
-    rgba(255, 255, 255, .025)
-  );
-}
-
-.btn,
-.add,
-.ask,
-.iconbtn,
-.cartbtn,
-.filter {
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.btn:hover,
-.add:hover,
-.ask:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(22, 140, 255, .22);
-}
-
-/* LOCK THE STORE UNTIL SIGN IN */
-body.auth-locked > header,
-body.auth-locked > main,
-body.auth-locked > footer {
-  visibility: hidden;
-}
-
-body.auth-locked #accountOverlay {
-  display: flex !important;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  padding: 20px;
-  background:
-    radial-gradient(ellipse at 20% 15%, rgba(0, 140, 255, .24), transparent 45%),
-    radial-gradient(ellipse at 85% 85%, rgba(90, 70, 255, .18), transparent 40%),
-    rgba(2, 8, 20, .88);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-}
-
-#accountOverlay .modal {
-  width: min(430px, 100%);
-  max-height: 90vh;
-  padding: clamp(24px, 5vw, 38px);
-  border-radius: 28px;
-  border: 1px solid rgba(170, 210, 255, .28);
-  background: rgba(10, 27, 53, .68);
-  backdrop-filter: blur(35px) saturate(170%);
-  -webkit-backdrop-filter: blur(35px) saturate(170%);
-  box-shadow:
-    0 25px 80px rgba(0, 0, 0, .4),
-    inset 0 1px 0 rgba(255, 255, 255, .12);
-}
-
-#accountOverlay .modalHead h2 {
-  font-size: clamp(25px, 6vw, 32px);
-  letter-spacing: -.8px;
-}
-
-#accountOverlay .checkoutForm input {
-  min-height: 48px;
-  border-radius: 14px;
-  border: 1px solid rgba(160, 200, 255, .25);
-  background: rgba(255, 255, 255, .055);
-  color: #fff;
-  outline: none;
-}
-
-#accountOverlay .checkoutForm input:focus {
-  border-color: #42a5ff;
-  box-shadow: 0 0 0 3px rgba(22, 140, 255, .13);
-}
-
-#accountOverlay .checkoutForm .btn {
-  min-height: 48px;
-  border-radius: 14px;
-}
-
-body.auth-locked #closeAccount {
-  display: none;
-}
-
-body.auth-locked .toast {
-  display: none !important;
-}
-
-</style>
-</head>
-<body class="auth-locked">
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#home">
-      <img src="https://i.ibb.co/Q7QMbhNN/Whats-App-Image-2026-10-27-at-4-08-19-PM.jpg" alt="Prime Mobile Logo">
-      <span>PRIME MOBILE<small>SMART TECH. BETTER SERVICE.</small></span>
-    </a>
-    <nav class="navlinks">
-      <a href="#home">Home</a><a href="#products">Shop</a>
-      <a href="#services">Services</a><a href="#contact">Contact</a>
-    </nav>
-    <button class="iconbtn" id="accountBtn" type="button">
-  Sign In
-</button>
-    <div class="actions">
-      <button class="iconbtn" id="themeBtn" type="button">☼</button>
-      <button class="cartbtn" id="openCart" type="button">Cart <span class="badge" id="cartCount">0</span></button>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="hero" id="home">
-    <div>
-      <div class="eyebrow">● TRIPOLI, LEBANON · YOUR TECH STORE</div>
-      <h1>Smart Tech.<br><em>Better Service.</em></h1>
-      <p>Discover smartphones, accessories, recharge cards and mobile services — with friendly local support from Prime Mobile in Tripoli.</p>
-      <div class="heroBtns">
-        <a class="btn primary" href="#products">Explore Products ↗</a>
-        <a class="btn secondary" href="#contact">Contact Us</a>
-      </div>
-    </div>
-    <div class="heroVisual">
-      <div class="glow"></div>
-      <div class="heroLogo">
-        <img src="https://i.ibb.co/Q7QMbhNN/Whats-App-Image-2026-10-27-at-4-08-19-PM.jpg" alt="Prime Mobile Logo">
-      </div>
-    </div>
-  </section>
-
-  <div class="stats">
-    <div class="stat"><strong>Phones & Gear</strong><span>Everyday essentials</span></div>
-    <div class="stat"><strong>Local Support</strong><span>Here in Tripoli</span></div>
-    <div class="stat"><strong>Easy Ordering</strong><span>Cart or WhatsApp</span></div>
-  </div>
-
-  <section id="products">
-    <div class="sectionHead">
-      <div><h2>Explore the Store</h2><p>Find what you need, fast.</p></div>
-      <input class="search" id="search" type="search" placeholder="Search products..." aria-label="Search products">
-    </div>
-    <div class="filters" id="filters">
-      <button class="filter active" data-category="All">All</button>
-      <button class="filter" data-category="Accessories">Accessories</button>
-      <button class="filter" data-category="Phones">Phones</button>
-      <button class="filter" data-category="Recharge & Internet">Recharge & Internet</button>
-      <button class="filter" data-category="Services">Services</button>
-    </div>
-    <div class="grid" id="productGrid"><div class="empty">Loading products...</div></div>
-  </section>
-
-  <section id="services">
-    <div class="sectionHead"><div><h2>More Than a Store</h2><p>Simple service, helpful support.</p></div></div>
-    <div class="services">
-      <article class="service"><i>📱</i><h3>Smartphones</h3><p>Explore phones and ask us about availability before visiting.</p></article>
-      <article class="service"><i>🔌</i><h3>Accessories</h3><p>Chargers, cables, cases, power banks and daily essentials.</p></article>
-      <article class="service"><i>📶</i><h3>Recharge & Internet</h3><p>Mobile top-ups, internet packages and connectivity services.</p></article>
-      <article class="service"><i>🛠️</i><h3>Helpful Support</h3><p>Ask us about products, printing and mobile services.</p></article>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="contactBox">
-      <div>
-        <h2>Let’s get you connected.</h2>
-        <p>Questions about a product or service? Message Prime Mobile and we’ll help.</p>
-        <div class="socials">
-          <a href="https://instagram.com/prime_mobile.lb" target="_blank" rel="noopener">Instagram ↗</a>
-          <a href="https://www.tiktok.com/@prime_mobile.961" target="_blank" rel="noopener">TikTok ↗</a>
-          <a href="tel:+96176378755">Call Us</a>
-        </div>
-      </div>
-      <a class="btn primary" href="https://wa.me/96176378755" target="_blank" rel="noopener">Message on WhatsApp ↗</a>
-    </div>
-  </section>
-</main>
-
-<footer><div class="wrap footerIn">
-  <span>© <span id="year"></span> Prime Mobile. All rights reserved.</span>
-  <span>Tripoli, Lebanon · Smart Tech. Better Service.</span>
-  <a href="#home">Back to top ↑</a>
-</div></footer>
-
-<div class="overlay" id="cartOverlay" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-  <div class="modal">
-    <div class="modalHead"><h2 id="cartTitle">Your Cart</h2><button class="close" id="closeCart" type="button">✕</button></div>
-    <div class="cartItems" id="cartItems"></div>
-    <div class="total"><span>Total</span><span id="cartTotal">$0.00</span></div>
-    <form class="checkoutForm" id="checkoutForm">
-      <label for="customerName">Full name *</label>
-      <input id="customerName" required placeholder="Your name">
-      <label for="customerPhone">Phone number *</label>
-      <input id="customerPhone" required type="tel" placeholder="Your phone number">
-      <label for="customerAddress">Delivery address</label>
-      <input id="customerAddress" placeholder="Area / street / building">
-      <label for="customerNotes">Order notes (optional)</label>
-      <textarea id="customerNotes" placeholder="Anything we should know?"></textarea>
-      <button class="btn primary" type="submit">Send Order via WhatsApp</button>
-      <p class="note">Your order will be sent to Prime Mobile on WhatsApp for confirmation. Online payment is not enabled.</p>
-    </form>
-  </div>
-</div>
-  
-<div class="overlay" id="accountOverlay" role="dialog" aria-modal="true">
-  <div class="modal">
-    <div class="modalHead">
-      <h2 id="accountTitle">Welcome Back</h2>
-      <button class="close" id="closeAccount" type="button">✕</button>
-    </div>
-
-    <form class="checkoutForm" id="accountForm">
-      <label for="accountName" id="accountNameLabel" hidden>Full name</label>
-      <input id="accountName" type="text" placeholder="Your full name" autocomplete="name" hidden>
-
-      <label for="accountEmail">Email address</label>
-      <input id="accountEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
-
-      <label for="accountPassword">Password</label>
-      <input id="accountPassword" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="current-password" required>
-
-      <button class="btn primary" id="accountSubmit" type="submit">Sign In</button>
-      <button class="btn secondary" id="switchAccountMode" type="button">Create a new account</button>
-      <p id="accountMessage" class="note" role="status"></p>
-    </form>
-
-    <div id="signedInPanel" hidden>
-      <p id="signedInEmail"></p>
-      <button class="btn primary" id="signOutBtn" type="button">Sign Out</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
 (() => {
   "use strict";
 
-  // IMPORTANT: paste your Supabase publishable key between the quotes.
   const SUPABASE_URL = "https://jkdlqtmspsxssxpotnhr.supabase.co";
   const SUPABASE_KEY = "sb_publishable_UciTeCD9uMfJzniL1sDuwA_fiDrVk9K";
   const WHATSAPP = "96176378755";
 
-  const $ = selector => document.querySelector(selector);
+  const $ = s => document.querySelector(s);
   const grid = $("#productGrid");
   const toast = $("#toast");
+  const accountOverlay = $("#accountOverlay");
+  const accountForm = $("#accountForm");
+  const accountMessage = $("#accountMessage");
+
   let products = [];
   let activeCategory = "All";
   let cart = [];
+  let accountMode = "signin";
 
   $("#year").textContent = new Date().getFullYear();
 
@@ -527,7 +32,11 @@ body.auth-locked .toast {
 
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, ch => ({
-      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
     }[ch]));
   }
 
@@ -536,43 +45,257 @@ body.auth-locked .toast {
     return Number.isFinite(n) ? "$" + n.toFixed(2) : "Ask for price";
   }
 
+  function setAccountMessage(message) {
+    accountMessage.textContent = message;
+  }
+
+  function updateAccountUI(user) {
+    $("#accountBtn").textContent = user ? "My Account" : "Sign In";
+    accountForm.hidden = !!user;
+    $("#signedInPanel").hidden = !user;
+    $("#signedInEmail").textContent = user ? user.email || "" : "";
+  }
+
+  function openAccount() {
+    accountOverlay.classList.add("open");
+  }
+
+  $("#accountBtn").addEventListener("click", openAccount);
+
+  $("#closeAccount").addEventListener("click", () => {
+    if (!document.body.classList.contains("auth-locked")) {
+      accountOverlay.classList.remove("open");
+    }
+  });
+
+  accountOverlay.addEventListener("click", event => {
+    if (
+      !document.body.classList.contains("auth-locked") &&
+      event.target === accountOverlay
+    ) {
+      accountOverlay.classList.remove("open");
+    }
+  });
+
+  $("#switchAccountMode").addEventListener("click", () => {
+    accountMode = accountMode === "signin" ? "signup" : "signin";
+    const signup = accountMode === "signup";
+
+    $("#accountTitle").textContent =
+      signup ? "Create Account" : "Welcome Back";
+    $("#accountSubmit").textContent =
+      signup ? "Create Account" : "Sign In";
+    $("#switchAccountMode").textContent =
+      signup ? "Already have an account? Sign In" : "Create a new account";
+
+    $("#accountName").hidden = !signup;
+    $("#accountNameLabel").hidden = !signup;
+    $("#accountName").required = signup;
+    $("#accountPassword").autocomplete =
+      signup ? "new-password" : "current-password";
+
+    setAccountMessage("");
+  });
+
+  async function authRequest(path, body = null, token = null) {
+    const headers = {
+      apikey: SUPABASE_KEY,
+      "Content-Type": "application/json"
+    };
+
+    if (token) headers.Authorization = "Bearer " + token;
+
+    const response = await fetch(SUPABASE_URL + path, {
+      method: body === null ? "GET" : "POST",
+      headers,
+      ...(body === null ? {} : { body: JSON.stringify(body) })
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(
+        data.msg || data.message || data.error_description ||
+        data.error || "Something went wrong. Please try again."
+      );
+    }
+
+    return data;
+  }
+
+  accountForm.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const email = $("#accountEmail").value.trim();
+    const password = $("#accountPassword").value;
+    const name = $("#accountName").value.trim();
+    const submit = $("#accountSubmit");
+
+    submit.disabled = true;
+    setAccountMessage("Please wait...");
+
+    try {
+      let data;
+
+      if (accountMode === "signup") {
+        data = await authRequest("/auth/v1/signup", {
+          email,
+          password,
+          data: { full_name: name }
+        });
+
+        if (!data.access_token) {
+          throw new Error(
+            "Account created. Check your email for confirmation, then sign in."
+          );
+        }
+      } else {
+        data = await authRequest(
+          "/auth/v1/token?grant_type=password",
+          { email, password }
+        );
+      }
+
+      if (!data.access_token || !data.user) {
+        throw new Error("No login session returned. Please try again.");
+      }
+
+      localStorage.setItem("prime_mobile_session", JSON.stringify({
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+        expires_at: Math.floor(Date.now() / 1000) +
+          (data.expires_in || 3600),
+        user: data.user
+      }));
+
+      updateAccountUI(data.user);
+      document.body.classList.remove("auth-locked");
+      accountForm.reset();
+      accountMode = "signin";
+      accountOverlay.classList.remove("open");
+      notify("Welcome to Prime Mobile!");
+
+    } catch (error) {
+      setAccountMessage(error.message);
+    } finally {
+      submit.disabled = false;
+    }
+  });
+
+  $("#signOutBtn").addEventListener("click", async () => {
+    const saved = localStorage.getItem("prime_mobile_session");
+
+    try {
+      if (saved) {
+        const session = JSON.parse(saved);
+        if (session.access_token) {
+          await authRequest(
+            "/auth/v1/logout",
+            {},
+            session.access_token
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Sign out request failed:", error);
+    } finally {
+      localStorage.removeItem("prime_mobile_session");
+      updateAccountUI(null);
+      accountMode = "signin";
+      setAccountMessage("");
+      document.body.classList.add("auth-locked");
+      accountOverlay.classList.add("open");
+    }
+  });
+
+  async function restoreAccountSession() {
+    const saved = localStorage.getItem("prime_mobile_session");
+
+    if (!saved) {
+      updateAccountUI(null);
+      document.body.classList.add("auth-locked");
+      accountOverlay.classList.add("open");
+      return;
+    }
+
+    try {
+      const session = JSON.parse(saved);
+
+      if (!session.access_token) {
+        throw new Error("No access token");
+      }
+
+      const data = await authRequest(
+        "/auth/v1/user",
+        null,
+        session.access_token
+      );
+
+      updateAccountUI(data);
+      document.body.classList.remove("auth-locked");
+      accountOverlay.classList.remove("open");
+
+    } catch (error) {
+      console.error("Could not restore account session:", error);
+      localStorage.removeItem("prime_mobile_session");
+      updateAccountUI(null);
+      document.body.classList.add("auth-locked");
+      accountOverlay.classList.add("open");
+    }
+  }
+
   function imageHTML(product) {
     const url = String(product.image_url || "").trim();
+
     if (/^https?:\/\//i.test(url)) {
-      return `<img src="${escapeHTML(url)}" alt="${escapeHTML(product.name)}" loading="lazy" onerror="this.style.display='none'">`;
+      return `<img src="${escapeHTML(url)}"
+        alt="${escapeHTML(product.name)}"
+        loading="lazy"
+        onerror="this.style.display='none'">`;
     }
-    const icons = {
-      "Accessories":"🔌",
-      "Phones":"📱",
-      "Recharge & Internet":"📶",
-      "Services":"🛠️"
-    };
-    return icons[product.category] || "📦";
+
+    return ({
+      Accessories: "🔌",
+      Phones: "📱",
+      "Recharge & Internet": "📶",
+      Services: "🛠️"
+    }[product.category] || "📦");
   }
 
   function renderProducts() {
     const query = $("#search").value.trim().toLowerCase();
 
     const visible = products.filter(product => {
-      const categoryMatch = activeCategory === "All" || product.category === activeCategory;
-      const text = `${product.name || ""} ${product.category || ""} ${product.description || ""}`.toLowerCase();
+      const categoryMatch =
+        activeCategory === "All" ||
+        product.category === activeCategory;
+
+      const text =
+        `${product.name || ""} ${product.category || ""} ` +
+        `${product.description || ""}`.toLowerCase();
+
       return categoryMatch && text.includes(query);
     });
 
     if (!visible.length) {
-      grid.innerHTML = '<div class="empty">No products found. Please contact us on WhatsApp for availability.</div>';
+      grid.innerHTML =
+        '<div class="empty">No products found. Please contact us on WhatsApp.</div>';
       return;
     }
 
     grid.innerHTML = visible.map(product => {
       const stock = Number(product.stock_quantity || 0);
+
       return `<article class="product">
         <div class="productVisual">${imageHTML(product)}</div>
         <span class="tag">${escapeHTML(product.category || "Product")}</span>
         <h3>${escapeHTML(product.name || "Product")}</h3>
-        <div class="desc">${escapeHTML(product.description || "Contact us for more details.")}</div>
+        <div class="desc">${escapeHTML(product.description || "Contact us for details.")}</div>
         <div class="stock">${stock > 0 ? "● In stock" : "● Ask for availability"}</div>
-        <div class="priceRow"><span class="price">${money(product.price)}</span><small>USD</small></div>
+        <div class="priceRow">
+          <span class="price">${money(product.price)}</span>
+          <small>USD</small>
+        </div>
         <button class="add" type="button" data-add="${escapeHTML(product.id)}">Add to Cart</button>
         <button class="ask" type="button" data-ask="${escapeHTML(product.id)}">Ask / Order on WhatsApp</button>
       </article>`;
@@ -580,36 +303,43 @@ body.auth-locked .toast {
   }
 
   function renderCart() {
-    $("#cartCount").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    $("#cartCount").textContent =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+
     const box = $("#cartItems");
 
     if (!cart.length) {
-      box.innerHTML = '<div class="empty">Your cart is empty. Add a product to get started.</div>';
+      box.innerHTML =
+        '<div class="empty">Your cart is empty. Add a product to get started.</div>';
       $("#cartTotal").textContent = "$0.00";
       return;
     }
 
-    box.innerHTML = cart.map(item => `<div class="cartItem">
-      <div><strong>${escapeHTML(item.name)}</strong><small>${money(item.price)} each</small></div>
-      <div class="qty">
-        <button type="button" data-minus="${escapeHTML(item.id)}" aria-label="Decrease quantity">−</button>
-        <strong>${item.quantity}</strong>
-        <button type="button" data-plus="${escapeHTML(item.id)}" aria-label="Increase quantity">+</button>
-        <button type="button" data-remove="${escapeHTML(item.id)}" aria-label="Remove item">×</button>
-      </div>
-    </div>`).join("");
+    box.innerHTML = cart.map(item => `
+      <div class="cartItem">
+        <div><strong>${escapeHTML(item.name)}</strong>
+        <small>${money(item.price)} each</small></div>
+        <div class="qty">
+          <button type="button" data-minus="${escapeHTML(item.id)}">−</button>
+          <strong>${item.quantity}</strong>
+          <button type="button" data-plus="${escapeHTML(item.id)}">+</button>
+          <button type="button" data-remove="${escapeHTML(item.id)}">×</button>
+        </div>
+      </div>`).join("");
 
-    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * item.quantity, 0);
+    const total = cart.reduce(
+      (sum, item) => sum + (Number(item.price) || 0) * item.quantity, 0
+    );
     $("#cartTotal").textContent = money(total);
   }
 
   function addToCart(id) {
     const product = products.find(item => String(item.id) === String(id));
-    if (!product) return notify("Product not found. Refresh the page and try again.");
+    if (!product) return notify("Product not found. Refresh and try again.");
 
     const existing = cart.find(item => String(item.id) === String(id));
     if (existing) existing.quantity++;
-    else cart.push({...product, quantity:1});
+    else cart.push({ ...product, quantity: 1 });
 
     renderCart();
     notify(product.name + " added to cart.");
@@ -631,10 +361,20 @@ body.auth-locked .toast {
     if (add) addToCart(add.dataset.add);
 
     if (ask) {
-      const product = products.find(item => String(item.id) === String(ask.dataset.ask));
-      if (!product) return;
-      const message = `Hello Prime Mobile! I'm interested in ${product.name}, priced at ${money(product.price)}. Is it available?`;
-      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank");
+      const product = products.find(
+        item => String(item.id) === String(ask.dataset.ask)
+      );
+
+      if (product) {
+        const message =
+          `Hello Prime Mobile! I'm interested in ${product.name}, priced at ${money(product.price)}. Is it available?`;
+
+        window.open(
+          "https://wa.me/" + WHATSAPP + "?text=" +
+          encodeURIComponent(message),
+          "_blank"
+        );
+      }
     }
   });
 
@@ -642,34 +382,50 @@ body.auth-locked .toast {
     const button = event.target.closest("button");
     if (!button) return;
 
-    const id = button.dataset.minus || button.dataset.plus || button.dataset.remove;
+    const id = button.dataset.minus ||
+      button.dataset.plus || button.dataset.remove;
+
     const item = cart.find(product => String(product.id) === String(id));
     if (!item) return;
 
-    if (button.dataset.minus) item.quantity = Math.max(1, item.quantity - 1);
+    if (button.dataset.minus) {
+      item.quantity = Math.max(1, item.quantity - 1);
+    }
     if (button.dataset.plus) item.quantity++;
-    if (button.dataset.remove) cart = cart.filter(product => String(product.id) !== String(id));
+    if (button.dataset.remove) {
+      cart = cart.filter(product => String(product.id) !== String(id));
+    }
 
     renderCart();
   });
 
   $("#openCart").addEventListener("click", openCart);
   $("#closeCart").addEventListener("click", closeCart);
+
   $("#cartOverlay").addEventListener("click", event => {
     if (event.target === $("#cartOverlay")) closeCart();
   });
+
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeCart();
+    if (event.key === "Escape") {
+      closeCart();
+      if (!document.body.classList.contains("auth-locked")) {
+        accountOverlay.classList.remove("open");
+      }
+    }
   });
 
   $("#search").addEventListener("input", renderProducts);
+
   $("#filters").addEventListener("click", event => {
     const button = event.target.closest("[data-category]");
     if (!button) return;
+
     activeCategory = button.dataset.category;
     document.querySelectorAll(".filter").forEach(item => {
       item.classList.toggle("active", item === button);
     });
+
     renderProducts();
   });
 
@@ -685,7 +441,10 @@ body.auth-locked .toast {
     const lines = cart.map(item =>
       `• ${item.name} x${item.quantity} — ${money(Number(item.price) * item.quantity)}`
     );
-    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * item.quantity, 0);
+
+    const total = cart.reduce(
+      (sum, item) => sum + (Number(item.price) || 0) * item.quantity, 0
+    );
 
     const message = `NEW PRIME MOBILE WEBSITE ORDER
 Name: ${name}
@@ -700,221 +459,22 @@ Notes: ${notes || "None"}
 
 Please confirm availability and delivery.`;
 
-    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank");
+    window.open(
+      "https://wa.me/" + WHATSAPP + "?text=" +
+      encodeURIComponent(message),
+      "_blank"
+    );
   });
-
-let accountMode = "signin";
-let currentAccount = null;
-
-const accountOverlay = document.querySelector("#accountOverlay");
-const accountForm = document.querySelector("#accountForm");
-const accountMessage = document.querySelector("#accountMessage");
-
-function setAccountMessage(message) {
-  accountMessage.textContent = message;
-}
-
-function updateAccountUI(user) {
-  currentAccount = user || null;
-
-  const button = document.querySelector("#accountBtn");
-  button.textContent = user
-    ? "My Account"
-    : "Sign In";
-
-  document.querySelector("#accountForm").hidden = !!user;
-  document.querySelector("#signedInPanel").hidden = !user;
-  document.querySelector("#signedInEmail").textContent =
-    user ? user.email : "";
-
- 
-document.querySelector("#accountBtn").addEventListener("click", openAccount);
-
-document.querySelector("#closeAccount").addEventListener("click", () => {
-  if (document.body.classList.contains("auth-locked")) return;
-  accountOverlay.classList.remove("open");
-});
-
-accountOverlay.addEventListener("click", event => {
-  if (document.body.classList.contains("auth-locked")) return;
-
-  if (event.target === accountOverlay) {
-    accountOverlay.classList.remove("open");
-  }
-});
-
-
-document.querySelector("#accountBtn").addEventListener("click", openAccount);
-
-document.querySelector("#closeAccount").addEventListener("click", () => {
-  accountOverlay.classList.remove("open");
-});
-
-accountOverlay.addEventListener("click", event => {
-  if (event.target === accountOverlay) {
-    accountOverlay.classList.remove("open");
-  }
-});
-
-document.querySelector("#switchAccountMode").addEventListener("click", () => {
-  accountMode = accountMode === "signin" ? "signup" : "signin";
-
-  const signup = accountMode === "signup";
-  document.querySelector("#accountTitle").textContent =
-    signup ? "Create Account" : "Welcome Back";
-  document.querySelector("#accountSubmit").textContent =
-    signup ? "Create Account" : "Sign In";
-  document.querySelector("#switchAccountMode").textContent =
-    signup ? "Already have an account? Sign In" : "Create a new account";
-  document.querySelector("#accountName").hidden = !signup;
-  document.querySelector("#accountNameLabel").hidden = !signup;
-  document.querySelector("#accountName").required = signup;
-  document.querySelector("#accountPassword").autocomplete =
-    signup ? "new-password" : "current-password";
-
-  setAccountMessage("");
-});
-
-async function authRequest(path, body = null, token = null) {
-  const headers = {
-    "apikey": SUPABASE_KEY,
-    "Content-Type": "application/json"
-  };
-
-  if (token) headers.Authorization = "Bearer " + token;
-
-  const response = await fetch(SUPABASE_URL + path, {
-    method: body === null ? "GET" : "POST",
-    headers,
-    ...(body === null ? {} : { body: JSON.stringify(body) })
-  });
-
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    throw new Error(data.msg || data.message || data.error_description ||
-      data.error || "Something went wrong. Please try again.");
-  }
-
-  return data;
-}
-
-accountForm.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const email = document.querySelector("#accountEmail").value.trim();
-  const password = document.querySelector("#accountPassword").value;
-  const name = document.querySelector("#accountName").value.trim();
-  const submit = document.querySelector("#accountSubmit");
-
-  submit.disabled = true;
-  setAccountMessage("Please wait...");
-
-  try {
-    let data;
-
-    if (accountMode === "signup") {
-      data = await authRequest("/auth/v1/signup", {
-        email,
-        password,
-        data: { full_name: name }
-      });
-
-      if (!data.access_token) {
-        throw new Error(
-          "Account created, but no session was returned. Check that email confirmation is disabled in Supabase."
-        );
-      }
-    } else {
-      data = await authRequest("/auth/v1/token?grant_type=password", {
-        email,
-        password
-      });
-    }
-
-    if (!data.access_token || !data.user) {
-      throw new Error("No login session was returned. Please try again.");
-    }
-
-    localStorage.setItem("prime_mobile_session", JSON.stringify({
-      access_token: data.access_token,
-      refresh_token: data.refresh_token,
-      expires_at: Math.floor(Date.now() / 1000) + (data.expires_in || 3600),
-      user: data.user
-    }));
-
-  
-updateAccountUI(data.user);
-document.body.classList.remove("auth-locked");
-accountForm.reset();
-accountOverlay.classList.remove("open");
-
-    notify(accountMode === "signup"
-      ? "Welcome to Prime Mobile!"
-      : "Welcome back!");
-
-  } catch (error) {
-    setAccountMessage(error.message);
-  } finally {
-    submit.disabled = false;
-  }
-});
-
-document.querySelector("#signOutBtn").addEventListener("click", async () => {
-  const saved = localStorage.getItem("prime_mobile_session");
-
-  try {
-    if (saved) {
-      const session = JSON.parse(saved);
-      if (session.access_token) {
-        await authRequest(
-          "/auth/v1/logout",
-          {},
-          session.access_token
-        );
-      }
-    }
-  } catch (error) {
-    console.error("Sign out request failed:", error);
-  } finally {
-    localStorage.removeItem("prime_mobile_session");
-    updateAccountUI(null);
-    accountMode = "signin";
-    setAccountMessage("");
-    accountOverlay.classList.remove("open");
-    notify("You have signed out.");
-  }
-});
-
-restoreAccountSession
-   updateAccountUI(data);
-document.body.classList.remove("auth-locked");
-accountOverlay.classList.remove("open");
-  } catch (error) {
-    console.error("Could not restore account session:", error);
-  localStorage.removeItem("prime_mobile_session");
-updateAccountUI(null);
-document.body.classList.add("auth-locked");
-accountOverlay.classList.add("open");
-  }
-}
-
-restoreAccountSession();
 
   async function loadProducts() {
-    if (SUPABASE_KEY.includes("PASTE_YOUR")) {
-      grid.innerHTML = '<div class="empty">Supabase is not connected yet. Add your publishable key in the code, then save.</div>';
-      return;
-    }
-
     try {
       const url = SUPABASE_URL +
         "/rest/v1/products?select=id,name,category,price,description,image_url,stock_quantity,is_active&is_active=eq.true&order=created_at.desc";
 
       const response = await fetch(url, {
         headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + SUPABASE_KEY
         }
       });
 
@@ -928,25 +488,11 @@ restoreAccountSession();
 
     } catch (error) {
       console.error("Product loading error:", error);
-      grid.innerHTML = '<div class="empty">Could not load products. Check the Supabase key and products table permissions.</div>';
+      grid.innerHTML =
+        '<div class="empty">Could not load products. Check Supabase key and products table permissions.</div>';
     }
   }
 
+  restoreAccountSession();
   loadProducts();
 })();
-</script>
-  <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register(
-      "/prime-mobile-store/service-worker.js"
-    ).catch(error => {
-      console.error("Service worker registration failed:", error);
-    });
-  });
-}
-</script>
-</body>
-</html>
-</body>
-</html>
