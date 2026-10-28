@@ -313,6 +313,126 @@ body.auth-locked #accountOverlay{display:flex!important}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
 }
+/* PRIME MOBILE — iOS BLUE LIQUID GLASS */
+body:not(.light) {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(48,130,255,.12), transparent 40%),
+    radial-gradient(ellipse at 85% 75%, rgba(65,190,255,.08), transparent 42%),
+    #080d16 !important;
+  background-attachment: fixed !important;
+}
+
+.site-header, header {
+  background: rgba(15,35,62,.38) !important;
+  border: 1px solid rgba(160,215,255,.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.38),
+              0 0 24px rgba(58,145,255,.12) !important;
+  backdrop-filter: blur(32px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(190%) !important;
+}
+
+.hero, .product, .trust-item, .contact, .modal,
+.product-visual, .glass {
+  background:
+    linear-gradient(135deg,
+      rgba(130,195,255,.19),
+      rgba(72,140,230,.08) 45%,
+      rgba(255,255,255,.035)) !important;
+  border: 1px solid rgba(175,220,255,.38) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 1px 0 0 rgba(255,255,255,.12),
+    0 12px 38px rgba(0,0,0,.20),
+    0 0 18px rgba(61,145,255,.08) !important;
+  backdrop-filter: blur(30px) saturate(185%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(185%) !important;
+}
+
+.hero, .product, .trust-item, .contact, .product-visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after, .product::after, .trust-item::after,
+.contact::after, .product-visual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  width: 84%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg, transparent,
+    rgba(255,255,255,.85),
+    rgba(120,200,255,.65),
+    transparent
+  );
+}
+
+.product:hover, .trust-item:hover {
+  border-color: rgba(145,210,255,.75) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 0 28px rgba(55,145,255,.18) !important;
+}
+
+.filter, .btn, .search input,
+.field input, .field textarea, .close {
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-color: rgba(175,220,255,.32) !important;
+}
+
+.filter, .search input, .field input, .field textarea {
+  background: rgba(115,170,235,.075) !important;
+}
+
+.btn.primary, .filter.active {
+  background: linear-gradient(
+    135deg, rgba(115,195,255,.95),
+    rgba(47,120,255,.92),
+    rgba(41,79,200,.95)
+  ) !important;
+  border: 1px solid rgba(220,240,255,.65) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55),
+              0 5px 24px rgba(45,125,255,.25) !important;
+}
+
+.modal {
+  background:
+    linear-gradient(145deg,
+      rgba(35,72,116,.91),
+      rgba(9,22,41,.93)) !important;
+  border-color: rgba(185,225,255,.55) !important;
+}
+
+.logo {
+  border: 1px solid rgba(255,255,255,.75) !important;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.8),
+              0 0 22px rgba(57,135,255,.35) !important;
+}
+
+body.light {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(80,155,255,.12), transparent 40%),
+    #dce6f3 !important;
+}
+
+.light .hero, .light .product, .light .trust-item,
+.light .contact, .light .product-visual, .light .glass {
+  background: linear-gradient(
+    135deg, rgba(255,255,255,.68),
+    rgba(210,230,255,.30),
+    rgba(255,255,255,.43)
+  ) !important;
+  border-color: rgba(255,255,255,.85) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95),
+              0 12px 35px rgba(50,90,150,.10) !important;
+  backdrop-filter: blur(30px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+}
+
 </style>
 </head>
 
