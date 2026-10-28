@@ -727,16 +727,22 @@ function updateAccountUI(user) {
   document.querySelector("#signedInEmail").textContent =
     user ? user.email : "";
 
-  document.querySelector("#accountTitle").textContent =
-    user ? "My Account" : accountMode === "signup"
-      ? "Create Account" : "Welcome Back";
-}
+ 
+document.querySelector("#accountBtn").addEventListener("click", openAccount);
 
-function openAccount() {
-  updateAccountUI(currentAccount);
-  setAccountMessage("");
-  accountOverlay.classList.add("open");
-}
+document.querySelector("#closeAccount").addEventListener("click", () => {
+  if (document.body.classList.contains("auth-locked")) return;
+  accountOverlay.classList.remove("open");
+});
+
+accountOverlay.addEventListener("click", event => {
+  if (document.body.classList.contains("auth-locked")) return;
+
+  if (event.target === accountOverlay) {
+    accountOverlay.classList.remove("open");
+  }
+});
+
 
 document.querySelector("#accountBtn").addEventListener("click", openAccount);
 
